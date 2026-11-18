@@ -3,6 +3,7 @@
 // alarms with history, and trends. Every value is read from the plant state each refresh; every button calls an
 // operator command through act(name, arg).
 import {ALARMS, levelOf, P, SEQ_TEXT, signals, TREND_N} from './model.js';
+import {getLang, t, translateTree} from './i18n.js';
 
 const ICON = {
   status: `<svg viewBox="0 0 48 40"><rect x="6" y="14" width="34" height="20" fill="#9aa4ae" stroke="#4b5560"/><rect x="3" y="6" width="5" height="30" fill="#6b7580"/><rect x="2" y="6" width="44" height="3" fill="#6b7580"/><rect x="20" y="10" width="12" height="4" fill="#f0c419"/><rect x="34" y="18" width="5" height="9" fill="#2f9e44"/><rect x="22" y="20" width="5" height="8" fill="#c8352b"/></svg>`,
@@ -118,6 +119,7 @@ export function createHMI(host, act) {
     <div class="brand"><b>HA01</b><span>FVGP-A 1-30 MELTING FURNACE</span><div class="clock" data-v="clock"></div></div>
     <div class="nav">${NAV.map(([k, t]) => `<button class="nb" data-nav="${k}" title="${t}">${ICON[k]}</button>`).join('')}</div>
     <div class="warn" data-c="warn" title="Active alarms"><svg viewBox="0 0 40 36"><path d="M20 3 L38 33 H2z" fill="#f7d417" stroke="#111" stroke-width="2"/><rect x="18" y="12" width="4" height="12" fill="#111"/><rect x="18" y="26" width="4" height="4" fill="#111"/></svg><span data-v="nalarm">0</span></div>
+    <button class="lang" data-a="lang" title="Language"><b>LANGUAGE</b><span data-v="langNow"></span></button>
   </div>
   <div class="banner" data-c="banner"><span data-v="banner"></span></div>
   <div class="body"></div>
@@ -270,6 +272,7 @@ export function createHMI(host, act) {
   function show(name) {
     screen = name;
     body.innerHTML = screens[name]();
+    translateTree(body);
     body.className = 'body s-' + name;
     nodes = {v: [...body.querySelectorAll('[data-v]')], c: [...body.querySelectorAll('[data-c]')]};
     for (const b of root.querySelectorAll('.nb')) b.classList.toggle('on', b.dataset.nav === name);
@@ -294,7 +297,7 @@ export function createHMI(host, act) {
   function openPad(k) {
     padKey = k;
     pad_.hidden = false;
-    pad_.querySelector('[data-v=padTitle]').textContent = SPNAME[k];
+    pad_.querySelector('[data-v=padTitle]').textContent = t(SPNAME[k]);
     pin.value = '';
     act('padOpen', k);
   }
@@ -364,7 +367,8 @@ export function createHMI(host, act) {
       pState: s.pump.flow > 0.01 ? 'RUNNING' : 'STOPPED',
       pFanS: s.pump.flow > 0.01 ? 'RUNNING' : 'STOPPED',
       nalarm: String(s.alarms.filter((a) => a.active || !a.ack).length),
-      msg: s.log.length && s.t - s.log[0].t < 30 ? '⚠ ' + s.log[0].text : '',
+      msg: s.log.length && s.t - s.log[0].t < 30 ? '⚠ ' + t(s.log[0].text) : '',
+      langNow: getLang() === 'ar' ? 'عربي' : 'EN',
     });
     for (let b = 0; b < 2; b++) {
       V['pow' + b] = f0(s.fire[b] * 100);
@@ -378,7 +382,7 @@ export function createHMI(host, act) {
       C['bMot' + b] = 'mstate ' + (s.fire[b] > 0 ? 'run' : '');
     }
     const top = s.alarms.find((a) => a.active) || s.alarms.find((a) => !a.ack);
-    V.banner = top ? `${top.code}    ${top.text}` : 'NO ACTIVE ALARMS';
+    V.banner = top ? `${top.code}    ${t(ALARMS[top.code] || top.text)}` : 'NO ACTIVE ALARMS';
     const lampC = (on, bad = 'red') => 'lamp ' + (on ? 'green' : bad);
     const ev = (on, bad) => 'valve ' + (bad ? 'bad' : on ? 'on' : 'off');
     Object.assign(C, {
@@ -443,7 +447,9 @@ export function createHMI(host, act) {
   function apply(list, V, C) {
     for (const n of list.v) {
       const k = n.dataset.v;
-      if (k in V && n.textContent !== V[k]) n.textContent = V[k];
+      if (!(k in V)) continue;
+      const v = t(V[k]);
+      if (n.textContent !== v) n.textContent = v;
     }
     for (const n of list.c) {
       const k = n.dataset.c;
@@ -475,7 +481,7 @@ export function createHMI(host, act) {
     }
     if (screen === 'alarm') {
       const list = hist ? s.history.slice(0, 40) : s.alarms;
-      const key = (hist ? 'h' : 'a') + list.map((a) => a.code + (a.active ? 'A' : '') + (a.ack ? 'K' : '') + a.t.toFixed(0)).join();
+      const key = getLang() + (hist ? 'h' : 'a') + list.map((a) => a.code + (a.active ? 'A' : '') + (a.ack ? 'K' : '') + a.t.toFixed(0)).join();
       if (key !== last) {
         last = key;
         const tb = body.querySelector('[data-v=altable]');
@@ -483,11 +489,11 @@ export function createHMI(host, act) {
           ? list
               .map((a) =>
                 hist
-                  ? `<tr class="${a.kind === 'RAISED' ? 'act' : 'clr'}"><td>${hms(a.t)}</td><td>${a.code}</td><td>${a.text}</td><td>${a.kind}</td></tr>`
-                  : `<tr class="${a.active ? (a.ack ? 'ackd' : 'act') : 'clr'}"><td>${hms(a.t)}</td><td>${a.code}</td><td>${a.text}</td><td>${a.active ? 'ACTIVE' : 'CLEARED'}${a.ack ? ' · ACK' : ''}</td></tr>`,
+                  ? `<tr class="${a.kind === 'RAISED' ? 'act' : 'clr'}"><td>${hms(a.t)}</td><td>${a.code}</td><td>${t(ALARMS[a.code] || a.text)}</td><td>${t(a.kind === 'RAISED' ? 'APPEARED' : 'CLEARED')}</td></tr>`
+                  : `<tr class="${a.active ? (a.ack ? 'ackd' : 'act') : 'clr'}"><td>${hms(a.t)}</td><td>${a.code}</td><td>${t(ALARMS[a.code] || a.text)}</td><td>${t(a.active ? 'ACTIVE' : 'CLEARED')}${a.ack ? ' · ' + t('ACK') : ''}</td></tr>`,
               )
               .join('')
-          : `<tr><td colspan="4" class="none">No alarms</td></tr>`;
+          : `<tr><td colspan="4" class="none">${t('No alarms')}</td></tr>`;
       }
     }
     if (screen === 'trend') drawTrend(s);
@@ -537,7 +543,7 @@ export function createHMI(host, act) {
       c.moveTo(x, T);
       c.lineTo(x, B);
       c.stroke();
-      c.fillText(m ? `-${m} min` : 'now', x - 36, B + 36);
+      c.fillText(m ? `-${m} ${t('min')}` : t('now'), x - 36, B + 36);
     }
     const col = {chSP: '#2f9e44', ch: '#111', alSP: '#1f4fd6', al: '#d0312d'};
     for (const k of ser) {
@@ -555,8 +561,14 @@ export function createHMI(host, act) {
     c.setLineDash([]);
   }
 
+  translateTree(root);
   return {
     root,
+    // re-render everything in the current language
+    relang() {
+      translateTree(root);
+      if (screen) show(screen);
+    },
     show,
     refresh,
     get screen() {

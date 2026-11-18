@@ -16,6 +16,9 @@ Open `HA01-furnace-simulator.html` in Chrome or Edge, or watch the 20 s tour in 
   - Hydraulic system (door EVs 110Y1–110Y3, tilting and ladle lock)
   - Alarms (with acknowledge, reset/clear and history)
   - Trends
+- **English / Arabic.** Switch with the EN / عربي button on the 3D side or the LANGUAGE button on the HMI header
+  (as on the real panel). Both sides, the tour captions, alarms and messages change; tags, units and numbers stay as on
+  the panel. The choice is remembered. Translations are in `src/i18n-ar.js`.
 - **One plant model under both sides** (`model.js`). Every value on the HMI and every movement in 3D comes from
   the same state, so the two always agree.
 - **Guided tour.** When the page is left alone it walks through a start-up, a ladle charge, a transfer to HC01, a
@@ -57,6 +60,7 @@ Correct any of these in `src/model.js` and run `./build.sh`.
 | `src/scene.js` | the 3D furnace, posed from the model state |
 | `src/hmi.js` | the HMI screens |
 | `src/main.js` | layout, camera views, labels, controls, guided tour, 20 s film script (`#film`) |
+| `src/i18n.js`, `src/i18n-ar.js` | language switch and the Arabic texts |
 | `src/style.css` | styles |
 | `film/` | video timeline, soundtrack (`score.py`) and frame recorder |
 | `docs/` | the source manual |

@@ -47,7 +47,7 @@ button,select,input{font-family:inherit}
 .hmi .brand span{font:700 7.5px Tahoma,sans-serif;color:#1b2f78;letter-spacing:.2px}
 .hmi .brand .clock{margin-top:4px;border:1px solid #444;font:700 10.5px Tahoma,sans-serif;text-align:center;padding:2px 0;color:#111}
 .hmi .nav{display:flex;gap:3px}
-.hmi .nb{width:66px;height:62px;border:2px solid #a8abaf;border-radius:3px;background:#d4d5d7;padding:4px;cursor:pointer}
+.hmi .nb{width:60px;height:62px;border:2px solid #a8abaf;border-radius:3px;background:#d4d5d7;padding:4px;cursor:pointer}
 .hmi .nb svg{width:100%;height:100%}
 .hmi .nb.on{background:#f8f4a8;border-color:#7d7a2b}
 .hmi .warn{margin-left:auto;width:52px;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #9a9da2;height:62px}
@@ -249,3 +249,18 @@ button,select,input{font-family:inherit}
 .hmi .pr{display:flex;gap:5px;margin-top:5px}
 .hmi .pr button{flex:1;font-size:12px}
 .hmi .pr .ok{background:#22b33a;color:#fff}
+
+/* language switch */
+.langsw{position:absolute;right:24px;top:62px;pointer-events:auto;display:flex;height:26px;border:1px solid #d3cdc2;border-radius:5px;overflow:hidden;background:#fbf9f5;cursor:pointer;padding:0}
+.langsw span{display:flex;align-items:center;padding:0 10px;font:700 11px 'JetBrains Mono',Tahoma,sans-serif;color:#6b6f75}
+.langsw span[data-l=ar]{font:700 13px Tahoma,'Segoe UI',sans-serif}
+.langsw span.on{background:#1d1f22;color:#fff}
+.ov .views{top:96px}
+.hmi .lang{width:70px;height:62px;margin-left:4px;background:linear-gradient(#6c7179,#4d5259);border:2px solid #2f3337;border-radius:3px;color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0}
+.hmi .lang b{font:700 9px Tahoma,Inter,sans-serif}
+.hmi .lang span{font:700 15px Tahoma,'Segoe UI',sans-serif}
+/* Arabic: fonts that carry Arabic glyphs, and no letter-spacing (it breaks joined letters) */
+#app.ar .hmi,#app.ar .hmi *:not(svg):not(path),#app.ar .cap,#app.ar .lb span,#app.ar .vb,#app.ar .cb,#app.ar .tour,#app.ar .grp em,#app.ar .flt,#app.ar .ttl span{font-family:Tahoma,'Segoe UI','Noto Sans Arabic','Noto Naskh Arabic',Arial,sans-serif!important;letter-spacing:0!important}
+#app.ar .pid text{font-family:Tahoma,'Segoe UI','Noto Sans Arabic',Arial,sans-serif}
+#app.ar .cap,#app.ar .ttl{direction:rtl;text-align:right}
+#app.ar .hmi td,#app.ar .hmi th{text-align:right}

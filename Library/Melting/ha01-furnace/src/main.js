@@ -4,6 +4,7 @@
 import {cmd, createPlant, FAULTS, levelOf, P, seedTrend, step} from './model.js';
 import {createScene} from './scene.js';
 import {createHMI} from './hmi.js';
+import {getLang, setLang, t, translateTree} from './i18n.js';
 
 const W = 1600;
 const H = 900;
@@ -58,6 +59,7 @@ function boot() {
         .join('')}</select></div>
     </div>
     <button class="tour"><i></i><span></span></button>
+    <button class="langsw" data-lang="1" title="Language"><span data-l="en">EN</span><span data-l="ar">عربي</span></button>
     <div class="cursor"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M3 2 L3 19 L8 14.5 L11.5 22 L14.5 20.6 L11 13.3 L17.5 13.3 Z" fill="#1c1d1f" stroke="#fff" stroke-width="1.4"/></svg></div>
     <div class="ring"></div>`;
   const $ = (q) => ov.querySelector(q);
@@ -152,6 +154,9 @@ function boot() {
       case 'remote':
         cmd.remote(s);
         break;
+      case 'lang':
+        applyLang(getLang() === 'ar' ? 'en' : 'ar');
+        break;
       case 'setSP': {
         const [k, v] = arg;
         const lim = {al: [600, 800], ch: [600, 950], alHigh: [600, 900], alLow: [300, 750], chHigh: [650, 1000], press: [-1, 1], rpm: [0, 600], pumpMin: [50, 900]}[k];
@@ -163,20 +168,38 @@ function boot() {
   };
   const hmi = createHMI(app, act);
   hmi.show('status');
+  // language: one switch for the 3D side and the HMI, remembered for the next visit
+  let capSrc = '';
+  const setCap = (txt) => {
+    capSrc = txt;
+    capEl.textContent = t(txt);
+  };
+  function applyLang(l) {
+    setLang(l);
+    document.documentElement.lang = getLang();
+    app.classList.toggle('ar', getLang() === 'ar');
+    translateTree(ov);
+    hmi.relang();
+    capEl.textContent = t(capSrc);
+    for (const b of ov.querySelectorAll('[data-l]')) b.classList.toggle('on', b.dataset.l === getLang());
+    for (const L of labelNodes) L.span.textContent = t(LABELS[L.k]());
+  }
 
   // ---------------------------------------------------------------- labels (callouts on the 3D view)
+  // numbers keep their left-to-right order inside Arabic text
+  const iso = (x) => '\u2066' + x + '\u2069';
   const LABELS = {
-    burner1: () => `BURNER #1 · ${s.fire[0] ? Math.round(s.fire[0] * 100) + '% · ' + Math.round(s.flame[0]) + ' µA' : 'OFF'}`,
-    burner2: () => `BURNER #2 · ${s.fire[1] ? Math.round(s.fire[1] * 100) + '% · ' + Math.round(s.flame[1]) + ' µA' : 'OFF'}`,
-    fan: () => `COMBUSTION FAN · ${s.fault === 'fanTrip' ? 'FAULT' : s.fan.speed > 0.05 ? 'RUN' : 'STOP'}`,
-    door: () => `DOOR · ${Math.round(s.door.pos * 100)}% OPEN`,
-    ladle: () => `LADLE · ${s.tilt.ladle.toFixed(1)} t · ${Math.round(s.tilt.pos * P.tiltMax)}°`,
-    swirl: () => `ALUSWIRLER · ${Math.round(s.swirl.rpm)} rpm`,
-    pump: () => `TRANSFER PUMP → HC01 · ${s.pump.flow.toFixed(2)} t/min`,
-    hpu: () => `HYDRAULIC GROUP · ${s.hyd.run ? 'RUN' : 'STOP'}`,
-    flue: () => `FLUE DAMPER · ${Math.round(s.damper * 100)}% · ${s.pres.toFixed(2)} mbar`,
-    bath: () => `BATH · ${Math.round(levelOf(s))} mm · ${s.mass.toFixed(1)} t · ${s.mass > 0.3 ? Math.round(s.al) : '--'} °C`,
-    rod: () => `LEVEL ROD · ${P.rodLevel} mm`,
+    burner1: () => `${t('BURNER #1')} · ${s.fire[0] ? iso(Math.round(s.fire[0] * 100) + '% · ' + Math.round(s.flame[0]) + ' µA') : t('OFF')}`,
+    burner2: () => `${t('BURNER #2')} · ${s.fire[1] ? iso(Math.round(s.fire[1] * 100) + '% · ' + Math.round(s.flame[1]) + ' µA') : t('OFF')}`,
+    fan: () => `${t('COMBUSTION FAN')} · ${t(s.fault === 'fanTrip' ? 'FAULT' : s.fan.speed > 0.05 ? 'RUN' : 'STOP')}`,
+    door: () => `${t('DOOR')} · ${iso(Math.round(s.door.pos * 100) + '%')} ${t('OPEN')}`,
+    ladle: () => `${t('LADLE')} · ${iso(s.tilt.ladle.toFixed(1) + ' t · ' + Math.round(s.tilt.pos * P.tiltMax) + '°')}`,
+    swirl: () => `${t('ALUSWIRLER')} · ${Math.round(s.swirl.rpm)} rpm`,
+    pump: () => `${t('TRANSFER PUMP')} → HC01 · ${s.pump.flow.toFixed(2)} t/min`,
+    hpu: () => `${t('HYDRAULIC GROUP')} · ${t(s.hyd.run ? 'RUN' : 'STOP')}`,
+    flue: () => `${t('FLUE DAMPER')} · ${Math.round(s.damper * 100)}% · ${s.pres.toFixed(2)} mbar`,
+    bath: () => `${t('BATH')} · ${Math.round(levelOf(s))} mm · ${s.mass.toFixed(1)} t · ${s.mass > 0.3 ? Math.round(s.al) : '--'} °C`,
+    rod: () => `${t('LEVEL ROD')} · ${P.rodLevel} mm`,
   };
   const OFF = {burner1: [-40, -70], burner2: [40, -70], fan: [-20, -60], door: [-60, -60], ladle: [-70, -60], swirl: [30, -60], pump: [40, -60], hpu: [-30, -50], flue: [40, -40], bath: [-40, 70], rod: [50, 40]};
   labelsEl.innerHTML = Object.keys(LABELS)
@@ -263,7 +286,7 @@ function boot() {
     if (!tour.on) return;
     tour.on = false;
     speed = 1;
-    capEl.textContent = 'You have control. Use the HMI on the right exactly as on the cabinet panel.';
+    setCap('You have control. Use the HMI on the right exactly as on the cabinet panel.');
     capT = T;
   };
   addEventListener('pointerdown', (e) => {
@@ -283,6 +306,7 @@ function boot() {
 
   // ---------------------------------------------------------------- controls on the stage
   ov.addEventListener('click', (e) => {
+    if (e.target.closest('[data-lang]')) return applyLang(getLang() === 'ar' ? 'en' : 'ar');
     const v = e.target.closest('[data-view]');
     if (v) setView(v.dataset.view);
     const t = e.target.closest('[data-tog]');
@@ -367,7 +391,7 @@ function boot() {
         }
         if (stp.view) setView(stp.view);
         if (stp.cap) {
-          capEl.textContent = stp.cap;
+          setCap(stp.cap);
           capT = T;
         }
         if (stp.run) stp.run();
@@ -438,7 +462,7 @@ function boot() {
       ov.querySelector('[data-tog=labels]').classList.toggle('on', ui.labelsOn);
       for (const b of ov.querySelectorAll('[data-spd]')) b.classList.toggle('on', Number(b.dataset.spd) === speed);
       tourBtn.classList.toggle('on', tour.on);
-      tourBtn.querySelector('span').textContent = tour.on ? `GUIDED TOUR · CLICK TO TAKE OVER` : '▶ RESTART GUIDED TOUR';
+      tourBtn.querySelector('span').textContent = t(tour.on ? 'GUIDED TOUR · CLICK TO TAKE OVER' : '▶ RESTART GUIDED TOUR');
       capK.style.width = tour.on ? `${clamp(tour.t / SLEN, 0, 1) * 100}%` : '0%';
       $('.cap').style.opacity = tour.on || T - capT < 6 ? 1 : 0;
     }
@@ -450,9 +474,10 @@ function boot() {
     filmNow += dt * 1000;
     tick(dt, filmNow);
   };
+  if (getLang() === 'ar') applyLang('ar');
   window.SIM = {get s() {
     return s;
-  }, ui, st, act, setView, takeOver, startTour, advance, FILM_MODE, get T() {
+  }, ui, st, act, applyLang, setView, takeOver, startTour, advance, FILM_MODE, get T() {
     return T;
   }, tour};
 }

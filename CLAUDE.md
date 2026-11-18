@@ -15,4 +15,6 @@ The user keeps a copy at `C:\Users\SCO100317\OneDrive - Synergies Castings LLC\D
   `dashboard.html`: one self-contained file (simulators, videos, manuals embedded) that the user drops into the
   OneDrive folder. The single file is not committed (.gitignore).
 - Simulators are built with the teardown skill in `.claude/skills/teardown` (`npm install` there once per session).
+- Every simulator has an English / Arabic switch (see `Library/Melting/ha01-furnace/src/i18n.js` and `i18n-ar.js`):
+  write the markup in English, translate every shown string into Arabic, keep tags, units and numbers as on the panel.
 - Values not given by the source documents are marked `[A]` in the package's model and listed in its README.
