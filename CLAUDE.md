@@ -10,7 +10,9 @@ The user keeps a copy at `C:\Users\SCO100317\OneDrive - Synergies Castings LLC\D
   `Library/README.md`: `manifest.json`, `README.md`, the 3D simulator HTML, the tour video (20 s mp4),
   `poster.jpg`, `docs/` holding the user's source files, `src/`, `film/`, `build.sh`.
 - After adding a package: add its id to the area in `Library/index.json`, then run
-  `python3 Library/build_dashboard.py` to regenerate `dashboard.html`, and give the user a ZIP of
-  `dashboard.html` + `Library/` (deliverables only, no `src/` or `film/`) to unzip into the OneDrive folder.
+  `python3 Library/build_dashboard.py` to regenerate `dashboard.html` (links into `Library/`), then
+  `python3 Library/build_dashboard.py --single` and send the user `dashboard-single.html` renamed to
+  `dashboard.html`: one self-contained file (simulators, videos, manuals embedded) that the user drops into the
+  OneDrive folder. The single file is not committed (.gitignore).
 - Simulators are built with the teardown skill in `.claude/skills/teardown` (`npm install` there once per session).
 - Values not given by the source documents are marked `[A]` in the package's model and listed in its README.

@@ -94,8 +94,23 @@ dialog button { background: none; border: 1px solid #555; color: #fff; border-ra
   <footer>Open the 3D simulators in Chrome or Edge. Files live in the <code>Library</code> folder beside this page.</footer>
 </div>
 <dialog id="player"><div class="bar"><span id="ptitle"></span><button id="pclose" type="button">Close</button></div><video id="pvideo" controls playsinline></video></dialog>
+
 <script>
-const DATA = {"title": "Equipment Library", "areas": [{"id": "melting", "name": "Melting", "folder": "Melting", "packages": [{"id": "ha01-furnace", "title": "HA01 Melting Furnace", "equipment": "FVGP-A 1-30 gas melting furnace (Insertec), tag HA01", "summary": "Operator training simulator: the furnace in 3D beside the cabinet HMI, driven by one process model, with a guided tour and fault injection.", "updated": "2026-11-18", "sim": "Library/Melting/ha01-furnace/HA01-furnace-simulator.html", "simSize": 799169, "video": "Library/Melting/ha01-furnace/HA01-furnace-tour-20s.mp4", "videoSize": 6988178, "poster": "Library/Melting/ha01-furnace/poster.jpg", "docs": [{"label": "HMI user manual", "name": "1982-MA-005-0-OTE-MOP-002 User Manual - HMI Description.docx", "href": "Library/Melting/ha01-furnace/docs/1982-MA-005-0-OTE-MOP-002%20User%20Manual%20-%20HMI%20Description.docx", "size": 16148559}], "folder": "Library/Melting/ha01-furnace"}]}, {"id": "casting", "name": "Casting", "folder": "Casting", "packages": []}, {"id": "die-maintenance", "name": "Die Maintenance", "folder": "Die Maintenance", "packages": []}, {"id": "heat-treatment", "name": "Heat Treatment", "folder": "Heat Treatment", "packages": []}, {"id": "cnc", "name": "CNC", "folder": "CNC", "packages": []}, {"id": "paint-line", "name": "Paint Line", "folder": "Paint Line", "packages": []}, {"id": "packing", "name": "Packing", "folder": "Packing", "packages": []}]};
+const DATA = {"title": "Equipment Library", "single": false, "areas": [{"id": "melting", "name": "Melting", "folder": "Melting", "packages": [{"id": "ha01-furnace", "title": "HA01 Melting Furnace", "equipment": "FVGP-A 1-30 gas melting furnace (Insertec), tag HA01", "summary": "Operator training simulator: the furnace in 3D beside the cabinet HMI, driven by one process model, with a guided tour and fault injection.", "updated": "2026-11-18", "sim": "Library/Melting/ha01-furnace/HA01-furnace-simulator.html", "simName": "HA01-furnace-simulator.html", "simSize": 799169, "video": "Library/Melting/ha01-furnace/HA01-furnace-tour-20s.mp4", "videoName": "HA01-furnace-tour-20s.mp4", "videoSize": 6988178, "poster": "Library/Melting/ha01-furnace/poster.jpg", "docs": [{"label": "HMI user manual", "name": "1982-MA-005-0-OTE-MOP-002 User Manual - HMI Description.docx", "href": "Library/Melting/ha01-furnace/docs/1982-MA-005-0-OTE-MOP-002%20User%20Manual%20-%20HMI%20Description.docx", "size": 16148559}], "folder": "Library/Melting/ha01-furnace"}]}, {"id": "casting", "name": "Casting", "folder": "Casting", "packages": []}, {"id": "die-maintenance", "name": "Die Maintenance", "folder": "Die Maintenance", "packages": []}, {"id": "heat-treatment", "name": "Heat Treatment", "folder": "Heat Treatment", "packages": []}, {"id": "cnc", "name": "CNC", "folder": "CNC", "packages": []}, {"id": "paint-line", "name": "Paint Line", "folder": "Paint Line", "packages": []}, {"id": "packing", "name": "Packing", "folder": "Packing", "packages": []}]};
+// files embedded in a single-file build are kept as base64 and turned into blob URLs the first time they are shown
+const BLOB = {};
+function res(u) {
+  if (!u || !u.startsWith('asset:')) return u;
+  const id = u.slice(6);
+  if (!BLOB[id]) {
+    const el = document.getElementById(id);
+    const bin = atob(el.textContent.trim());
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    BLOB[id] = URL.createObjectURL(new Blob([arr], {type: el.dataset.mime}));
+  }
+  return BLOB[id];
+}
 const $ = (q) => document.querySelector(q);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const mb = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB');
@@ -108,19 +123,19 @@ $('#flow').innerHTML = DATA.areas.map((a, i) => `<a class="stage${a.packages.len
   <span class="ct">${a.packages.length ? a.packages.length + ' machine' + (a.packages.length > 1 ? 's' : '') : 'empty'}</span></a>`).join('');
 
 function card(p) {
-  const docs = p.docs.map((d) => `<a href="${d.href}" download><span>${esc(d.label)}</span><span class="meta"><b>${ext(d.name)}</b> ${mb(d.size)}</span></a>`).join('');
+  const docs = p.docs.map((d) => `<a href="${res(d.href)}" download="${esc(d.name)}"><span>${esc(d.label)}</span><span class="meta"><b>${ext(d.name)}</b> ${mb(d.size)}</span></a>`).join('');
   return `<article class="card">
     ${p.video ? `<button class="poster" type="button" data-video="${p.video}" data-title="${esc(p.title)}" aria-label="Play the ${esc(p.title)} video">
-      ${p.poster ? `<img src="${p.poster}" alt="">` : ''}<span class="play"><i></i>Play video</span></button>` : ''}
+      ${p.poster ? `<img src="${res(p.poster)}" alt="">` : ''}<span class="play"><i></i>Play video</span></button>` : ''}
     <div class="body">
       <h3>${esc(p.title)}</h3>
       <p class="eq">${esc(p.equipment)}</p>
       <p class="sum">${esc(p.summary)}</p>
-      ${p.sim ? `<a class="open" href="${p.sim}" target="_blank" rel="noopener">Open 3D simulator</a>` : ''}
+      ${p.sim ? `<a class="open" href="${res(p.sim)}" target="_blank" rel="noopener">Open 3D simulator</a>` : ''}
       <div class="dl"><span class="lbl">Downloads</span>
         ${docs}
-        ${p.video ? `<a href="${p.video}" download><span>Tour video</span><span class="meta"><b>MP4</b> ${mb(p.videoSize)}</span></a>` : ''}
-        ${p.sim ? `<a href="${p.sim}" download><span>3D simulator page</span><span class="meta"><b>HTML</b> ${mb(p.simSize)}</span></a>` : ''}
+        ${p.video ? `<a href="${res(p.video)}" download="${esc(p.videoName)}"><span>Tour video</span><span class="meta"><b>MP4</b> ${mb(p.videoSize)}</span></a>` : ''}
+        ${p.sim ? `<a href="${res(p.sim)}" download="${esc(p.simName)}"><span>3D simulator page</span><span class="meta"><b>HTML</b> ${mb(p.simSize)}</span></a>` : ''}
       </div>
     </div></article>`;
 }
@@ -146,11 +161,12 @@ document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-video]');
   if (!b) return;
   $('#ptitle').textContent = b.dataset.title;
-  vid.src = b.dataset.video;
+  vid.src = res(b.dataset.video);
   dlg.showModal();
   vid.play().catch(() => {});
 });
 const stop = () => { vid.pause(); vid.removeAttribute('src'); vid.load(); };
+if (DATA.single) document.querySelector('footer').textContent = 'Everything is inside this one file: the 3D simulators, the videos and the manuals. Open the 3D simulators in Chrome or Edge.';
 $('#pclose').addEventListener('click', () => dlg.close());
 dlg.addEventListener('close', stop);
 dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });

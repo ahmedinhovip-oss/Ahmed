@@ -1,13 +1,17 @@
 """Writes dashboard.html next to the Library folder from Library/index.json and each package's manifest.json.
 
     python3 Library/build_dashboard.py            (run from the folder that holds Library/)
+    python3 Library/build_dashboard.py --single   one self-contained dashboard.html: every simulator, video,
+                                                  poster and manual embedded, nothing else needed beside it
 
 The catalogue is embedded in the page, so dashboard.html works opened straight from disk or OneDrive (file://),
 where a browser would refuse to fetch index.json. Run it again whenever a package is added or changed.
 """
 
+import base64
 import json
 import os
+import sys
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +23,25 @@ def url(*parts):
     return "/".join(quote(p) for p in "/".join(parts).split("/"))
 
 
+MIME = {".html": "text/html", ".mp4": "video/mp4", ".jpg": "image/jpeg", ".png": "image/png", ".pdf": "application/pdf",
+        ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}
+
+
 def main():
+    single = "--single" in sys.argv
+    assets = []
+
+    def ref(folder, base, rel):
+        """A link to a package file: a relative path, or in --single mode an id of the file embedded in the page."""
+        if not single:
+            return url(base, rel)
+        path = os.path.join(folder, rel)
+        aid = f"a{len(assets)}"
+        mime = MIME.get(os.path.splitext(rel)[1].lower(), "application/octet-stream")
+        assets.append((aid, mime, base64.b64encode(open(path, "rb").read()).decode()))
+        return "asset:" + aid
+
     index = json.load(open(os.path.join(HERE, "index.json"), encoding="utf-8"))
     areas = []
     for a in index["areas"]:
@@ -40,19 +62,24 @@ def main():
                 "equipment": m.get("equipment", ""),
                 "summary": m.get("summary", ""),
                 "updated": m.get("updated", ""),
-                "sim": url(base, f["simulator"]) if f.get("simulator") else None,
+                "sim": ref(folder, base, f["simulator"]) if f.get("simulator") else None,
+                "simName": os.path.basename(f.get("simulator", "")),
                 "simSize": size(f.get("simulator", "")),
-                "video": url(base, f["video"]) if f.get("video") else None,
+                "video": ref(folder, base, f["video"]) if f.get("video") else None,
+                "videoName": os.path.basename(f.get("video", "")),
                 "videoSize": size(f.get("video", "")),
-                "poster": url(base, f["poster"]) if f.get("poster") else None,
-                "docs": [{"label": d["label"], "name": os.path.basename(d["file"]), "href": url(base, d["file"]), "size": size(d["file"])} for d in f.get("sources", [])],
+                "poster": ref(folder, base, f["poster"]) if f.get("poster") else None,
+                "docs": [{"label": d["label"], "name": os.path.basename(d["file"]), "href": ref(folder, base, d["file"]), "size": size(d["file"])} for d in f.get("sources", [])],
                 "folder": url(base),
             })
         areas.append({"id": a["id"], "name": a["name"], "folder": a["folder"], "packages": pkgs})
-    data = json.dumps({"title": index["title"], "areas": areas}, ensure_ascii=False).replace("</", "<\\/")
+    data = json.dumps({"title": index["title"], "single": single, "areas": areas}, ensure_ascii=False).replace("</", "<\\/")
     tpl = open(os.path.join(HERE, "dashboard.template.html"), encoding="utf-8").read()
-    out = os.path.join(ROOT, "dashboard.html")
-    open(out, "w", encoding="utf-8").write(tpl.replace("/*__DATA__*/null", data))
+    blobs = "".join(f'<script type="application/octet-stream" id="{a}" data-mime="{m}">{b}</script>\n' for a, m, b in assets)
+    html = tpl.replace("/*__DATA__*/null", data).replace("<!--__ASSETS__-->", blobs)
+    out = os.path.join(ROOT, "dashboard-single.html" if single else "dashboard.html")
+    open(out, "w", encoding="utf-8").write(html)
+    print(f"{os.path.getsize(out) / 1048576:.1f} MB")
     n = sum(len(a["packages"]) for a in areas)
     print(f"wrote {out}: {len(areas)} areas, {n} packages")
 
