@@ -1,0 +1,12 @@
+{
+  "title": "Equipment Library",
+  "areas": [
+    {"id": "melting", "name": "Melting", "folder": "Melting", "packages": ["ha01-furnace"]},
+    {"id": "casting", "name": "Casting", "folder": "Casting", "packages": []},
+    {"id": "die-maintenance", "name": "Die Maintenance", "folder": "Die Maintenance", "packages": []},
+    {"id": "heat-treatment", "name": "Heat Treatment", "folder": "Heat Treatment", "packages": []},
+    {"id": "cnc", "name": "CNC", "folder": "CNC", "packages": []},
+    {"id": "paint-line", "name": "Paint Line", "folder": "Paint Line", "packages": []},
+    {"id": "packing", "name": "Packing", "folder": "Packing", "packages": []}
+  ]
+}
