@@ -1,5 +1,9 @@
 // Records the 20 s film frame by frame: node film/record.cjs <absolute path to page.html> <frames dir>
-const fs=require('fs');const {chromium}=require(require('path').resolve(__dirname,'../../../../.claude/skills/teardown/node_modules/playwright'));
+const fs=require('fs');
+// the machine's own Playwright first (its browser is installed); the teardown skill's copy otherwise
+let pw;
+try { pw = require('playwright'); } catch (e) { pw = require(require('path').resolve(__dirname, '../../../../.claude/skills/teardown/node_modules/playwright')); }
+const {chromium} = pw;
 const page=process.argv[2], dir=process.argv[3], mode='render', FPS=30, N=20*FPS;
 (async()=>{
  fs.mkdirSync(dir,{recursive:true});

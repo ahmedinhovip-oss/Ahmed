@@ -20,7 +20,7 @@ Library/
 
 | Area | Machines |
 |---|---|
-| Melting | [HA01 Melting Furnace](Melting/ha01-furnace/README.md) |
+| Melting | [HA01 Melting Furnace](Melting/ha01-furnace/README.md), [Degassing Machine](Melting/degassing-machine/README.md) |
 | Casting | none yet |
 | Die Maintenance | none yet |
 | Heat Treatment | none yet |

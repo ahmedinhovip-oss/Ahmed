@@ -1,0 +1,18 @@
+{
+  "id": "degassing-machine",
+  "area": "Melting",
+  "title": "Degassing Machine",
+  "equipment": "Nutec-Thermo rotary degassing machine, machines 136–141 (supplied March 2021)",
+  "summary": "Operator training simulator: rotor, baffle, flux feeder and argon in 3D beside the control panel and touch HMI, with the full auto cycle, manual mode, the PLC alarm list, a melt-quality readout, a guided tour and fault injection. English and Arabic.",
+  "files": {
+    "simulator": "Degassing-machine-simulator.html",
+    "video": "Degassing-machine-tour-20s.mp4",
+    "sources": [
+      {"label": "Working and maintenance manual", "file": "docs/Degassing Machine - Working and Maintenance Manual (Nutec-Thermo).pdf"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-18"
+}

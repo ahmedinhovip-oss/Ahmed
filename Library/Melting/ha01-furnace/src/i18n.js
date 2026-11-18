@@ -6,7 +6,7 @@ import {AR, AR_RE} from './i18n-ar.js';
 
 let lang = 'en';
 try {
-  lang = localStorage.getItem('ha01-lang') === 'ar' ? 'ar' : 'en';
+  lang = localStorage.getItem('lib-lang') === 'ar' ? 'ar' : 'en';
 } catch (e) {
   /* storage blocked: start in English */
 }
@@ -17,7 +17,7 @@ export const getLang = () => lang;
 export function setLang(l) {
   lang = l === 'ar' ? 'ar' : 'en';
   try {
-    localStorage.setItem('ha01-lang', lang);
+    localStorage.setItem('lib-lang', lang);
   } catch (e) {
     /* keep it for this visit only */
   }
