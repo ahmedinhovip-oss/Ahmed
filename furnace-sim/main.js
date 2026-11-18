@@ -217,6 +217,23 @@ function boot() {
     {at: 133, end: true},
   ];
   const TOUR_LEN = 133;
+  // the 20 s film: the same operator moves, condensed, for a recorded video (open the page with #film)
+  const FILM = [
+    {at: 0.0, view: 'overview', cap: 'HA01 · FVGP-A 1-30 gas melting furnace. Burners stopped, metal holding at 708 °C.', run: () => resetPlant('off')},
+    {at: 2.2, ptr: H_('[data-nav=comb]'), run: () => act('screen', 'comb'), view: 'burners', cap: 'Combustion screen: the gas train in yellow, combustion air in blue.'},
+    {at: 3.4, ptr: H_('[data-a=start]'), run: () => ((speed = 30), act('start')), cap: 'START: the fan proves air, 70Y1 passes the tightness test, then the chamber is purged.'},
+    {at: 6.6, view: 'inside', cap: 'Ignition: each burner must prove more than 10 µA of flame signal, then the burners modulate.'},
+    {at: 9.2, ptr: H_('[data-nav=hyd]'), run: () => ((speed = 12), act('screen', 'hyd'), act('hydOn'), act('lock')), view: 'door', cap: 'Charging a ladle: raise the door and the burners drop to low fire.'},
+    {at: 9.9, ptr: H_('[data-a=doorUp]'), run: () => act('doorUp')},
+    {at: 11.0, ptr: H_('[data-a=tiltUp]'), run: () => act('tiltUp'), cap: 'Tilt up: the ladle pours over the sill. The bath level and temperature change.'},
+    {at: 14.0, ptr: H_('[data-nav=param]'), run: () => ((speed = 20), act('tiltDn'), act('goIlk'), act('hc01')), view: 'pump', cap: 'Transfer to HC01: all four interlocks green, then START TRANSFER.'},
+    {at: 15.0, ptr: H_('[data-a=pumpOn]'), run: () => act('pumpOn')},
+    {at: 17.0, ptr: O_('.flt'), run: () => ((speed = 2), setFault('fanTrip'), act('screen', 'alarm')), view: 'burners', cap: 'Fault: the combustion fan trips. The gas valves close, the burners lock out and the alarm is raised.'},
+    {at: 20, end: true},
+  ];
+  const FILM_MODE = location.hash === '#film';
+  const SCRIPT = FILM_MODE ? FILM : TOUR;
+  const SLEN = FILM_MODE ? 20 : TOUR_LEN;
   const tour = {on: true, t: 0, i: 0};
   const resetPlant = (sc) => {
     s = createPlant(sc);
@@ -333,15 +350,19 @@ function boot() {
   function frame(now) {
     const dt = Math.min(0.1, Math.max(0, (now - last) / 1000));
     last = now;
+    tick(dt, now);
+    requestAnimationFrame(frame);
+  }
+  function tick(dt, now) {
     T += dt;
 
     // tour: fire every step whose time has come; move the cursor toward the next step's target ahead of its press
     if (tour.on) {
       tour.t += dt;
-      while (tour.i < TOUR.length && tour.t >= TOUR[tour.i].at) {
-        const stp = TOUR[tour.i++];
+      while (tour.i < SCRIPT.length && tour.t >= SCRIPT[tour.i].at) {
+        const stp = SCRIPT[tour.i++];
         if (stp.end) {
-          startTour();
+          if (!FILM_MODE) startTour();
           break;
         }
         if (stp.view) setView(stp.view);
@@ -352,7 +373,7 @@ function boot() {
         if (stp.run) stp.run();
         if (stp.ptr) cur.press = T;
       }
-      const nxt = TOUR.slice(tour.i).find((x) => x.ptr);
+      const nxt = SCRIPT.slice(tour.i).find((x) => x.ptr);
       if (nxt && nxt.at - tour.t < 1.1) {
         const el = nxt.ptr();
         if (el) {
@@ -405,11 +426,11 @@ function boot() {
       L.line.setAttribute('y1', 0);
       L.line.setAttribute('x2', ox);
       L.line.setAttribute('y2', oy);
-      if (now - lastUI > 110) L.span.textContent = LABELS[L.k]();
+      if (FILM_MODE || now - lastUI > 110) L.span.textContent = LABELS[L.k]();
     }
 
     // overlay state and HMI refresh, about 9 times a second
-    if (now - lastUI > 110) {
+    if (FILM_MODE || now - lastUI > 110) {
       lastUI = now;
       hmi.refresh(s);
       for (const b of ov.querySelectorAll('[data-view]')) b.classList.toggle('on', b.dataset.view === ui.view);
@@ -418,15 +439,20 @@ function boot() {
       for (const b of ov.querySelectorAll('[data-spd]')) b.classList.toggle('on', Number(b.dataset.spd) === speed);
       tourBtn.classList.toggle('on', tour.on);
       tourBtn.querySelector('span').textContent = tour.on ? `GUIDED TOUR · CLICK TO TAKE OVER` : '▶ RESTART GUIDED TOUR';
-      capK.style.width = tour.on ? `${clamp(tour.t / TOUR_LEN, 0, 1) * 100}%` : '0%';
+      capK.style.width = tour.on ? `${clamp(tour.t / SLEN, 0, 1) * 100}%` : '0%';
       $('.cap').style.opacity = tour.on || T - capT < 6 ? 1 : 0;
     }
-    requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
+  // film mode: no clock of its own; the capture steps it with SIM.advance(1 / fps)
+  if (!FILM_MODE) requestAnimationFrame(frame);
+  let filmNow = 0;
+  const advance = (dt) => {
+    filmNow += dt * 1000;
+    tick(dt, filmNow);
+  };
   window.SIM = {get s() {
     return s;
-  }, ui, st, act, setView, takeOver, startTour, get T() {
+  }, ui, st, act, setView, takeOver, startTour, advance, FILM_MODE, get T() {
     return T;
   }, tour};
 }
