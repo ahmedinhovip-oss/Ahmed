@@ -206,6 +206,13 @@ export const cmd = {
     if (s.estop) return note(s, 'Release the emergency stop first');
     s.resetNeeded = false;
     clearAlarm(s, 11);
+    // trips whose cause is gone clear on reset; Clear on the alarm screen then removes them from the log
+    const g = signals(s);
+    if (g.feederOK) clearAlarm(s, 1);
+    if (g.rotorOK) clearAlarm(s, 2);
+    if (g.hydOK) clearAlarm(s, 3);
+    if (g.baffleOK) clearAlarm(s, 4);
+    if (s.fault !== 'middle') clearAlarm(s, 13);
     if (s.step === 'STOPPED') setStep(s, signals(s).upperLS ? 'IDLE' : 'ABORT');
   },
   estop(s, on) {
