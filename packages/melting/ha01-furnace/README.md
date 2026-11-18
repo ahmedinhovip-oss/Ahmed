@@ -1,7 +1,7 @@
 # HA01 · FVGP-A 1-30 gas melting furnace: operator simulator
 
 An offline training simulator built from the user manual **1982-MA-005-0-OTE-MOP-002 (HMI description)**.
-Open `HA01-furnace-simulator.html` in Chrome or Edge. Nothing is installed, and no network connection is needed.
+Open `HA01-furnace-simulator.html` in Chrome or Edge, or watch the 20 s tour in `HA01-furnace-tour-20s.mp4`. Nothing is installed, and no network connection is needed.
 
 - **Left: the furnace in 3D.** You can see the chamber, two burners, the gas and air trains, the combustion fan,
   the vertical-lift door, the tilting platform and ladle, the Aluswirler, the transfer pump, the flue damper and
@@ -42,22 +42,21 @@ main ones are:
 | Aluminium high alarm | 780 °C | the screen shows 700 °C, which is below the 720 °C set point |
 | Purge | 60 s | as on the combustion screen; the text of the manual says six minutes |
 
-Correct any of these in `model.js` and rebuild.
+Correct any of these in `src/model.js` and run `./build.sh`.
 
 ## Rebuild
 
-The page is built with the `teardown` skill in `.claude/skills/teardown` (run `npm install` there once):
-
 ```
-cd furnace-sim
-TEARDOWN_OUT=out node ../.claude/skills/teardown/sims/build.mjs ./
-cp out/dist/furnace-sim.html HA01-furnace-simulator.html
+./build.sh          # the 3D page
+./build.sh video    # also re-record the tour video (slow without a GPU)
 ```
 
-| File | Job |
+| Path | Job |
 |---|---|
-| `model.js` | process model: combustion sequence, tightness test, heat balance, hydraulics, transfer, alarms |
-| `scene.js` | the 3D furnace, posed from the model state |
-| `hmi.js` | the HMI screens |
-| `main.js` | layout, camera views, labels, controls, guided tour |
-| `style.css` | styles |
+| `src/model.js` | process model: combustion sequence, tightness test, heat balance, hydraulics, transfer, alarms |
+| `src/scene.js` | the 3D furnace, posed from the model state |
+| `src/hmi.js` | the HMI screens |
+| `src/main.js` | layout, camera views, labels, controls, guided tour, 20 s film script (`#film`) |
+| `src/style.css` | styles |
+| `film/` | video timeline, soundtrack (`score.py`) and frame recorder |
+| `docs/` | the source manual |

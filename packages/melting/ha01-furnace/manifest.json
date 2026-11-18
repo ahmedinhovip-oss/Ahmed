@@ -1,0 +1,15 @@
+{
+  "id": "ha01-furnace",
+  "area": "melting",
+  "title": "HA01 Melting Furnace",
+  "equipment": "FVGP-A 1-30 gas melting furnace (Insertec), tag HA01",
+  "summary": "Operator training simulator: the furnace in 3D beside the cabinet HMI, driven by one process model, with a guided tour and fault injection.",
+  "files": {
+    "simulator": "HA01-furnace-simulator.html",
+    "video": "HA01-furnace-tour-20s.mp4",
+    "sources": ["docs/1982-MA-005-0-OTE-MOP-002 User Manual - HMI Description.docx"],
+    "readme": "README.md"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-18"
+}
