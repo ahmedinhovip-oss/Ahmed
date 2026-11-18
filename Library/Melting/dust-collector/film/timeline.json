@@ -1,0 +1,8 @@
+{"duration": 20,
+ "fan": [0, 20],
+ "views": [2.6, 5.2, 8.2, 12.0, 15.2],
+ "pulseStart": 5.4,
+ "pulseGap": 0.333,
+ "pulses": 13,
+ "surge": 15.2,
+ "damper": 17.0}

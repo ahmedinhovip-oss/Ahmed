@@ -7,7 +7,8 @@
       "folder": "Melting",
       "packages": [
         "ha01-furnace",
-        "degassing-machine"
+        "degassing-machine",
+        "dust-collector"
       ]
     },
     {

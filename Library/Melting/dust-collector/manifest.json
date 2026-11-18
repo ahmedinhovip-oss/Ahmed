@@ -1,0 +1,18 @@
+{
+  "id": "dust-collector",
+  "area": "Melting",
+  "title": "Dust Collector · IDEX Fume Extraction",
+  "equipment": "Pulse-jet bag filter (2 compartments), ID fan and 18 m self-supported chimney on the IDEX fume take-off",
+  "summary": "Operator training simulator built from the general-arrangement drawing: the line from IDEX to the chimney in 3D, a bag-filter control panel, pulse-jet cleaning, fan flow control, dilution protection, a guided tour and fault injection. English and Arabic.",
+  "files": {
+    "simulator": "Dust-collector-simulator.html",
+    "video": "Dust-collector-tour-20s.mp4",
+    "sources": [
+      {"label": "General arrangement drawing (Section L-L)", "file": "docs/Drawing - Dust Collector (Section L-L).pdf"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-18"
+}
