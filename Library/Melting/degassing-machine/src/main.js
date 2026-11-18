@@ -220,7 +220,7 @@ function boot() {
   };
   // time compression for the film and the tour: end the running step now (its timer reads complete)
   const finishStep = (st) => {
-    if (s.step === st) s.stepT = 1e6;
+    if (s.step === st) s.stepT = s.set.degassing * 60;
   };
   const setFault = (f) => {
     cmd.setFault(s, f);
