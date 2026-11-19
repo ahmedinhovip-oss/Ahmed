@@ -75,3 +75,14 @@ From the manual: the 5 min purge, the 900/950 °C warm-up set point, the 300 mm 
 | `src/i18n.js`, `src/i18n-ar.js` | language switch and the Arabic texts |
 | `film/` | video timeline, soundtrack and recorder |
 | `docs/` | the source manual |
+
+## Impeller and flange (drawing 100-M-004)
+
+The Aluswirler impeller in the 3D follows Synergies drawing **100-M-004** (`docs/100-M-004 Impeller and flange.pdf`):
+
+- **Impeller (item 1):** one ceramic piece.
+  - **Shaft:** tapered, 510 long, from Ø200 at the R25 fillet to Ø130 at the top, with two Ø20 pin holes 45 below
+    the top.
+  - **Head:** Ø450 × 285, made of an 85 mm top disc, six 65 mm wide blades and a 45 mm bottom ring with a Ø310 bore.
+- **Flange (item 2):** Ø265 × 20 plate with 8 × Ø18 bolts on Ø225, a Ø137 bore and a Ø170 barrel 120 high, with
+  two Ø40 cross bores for the pins.

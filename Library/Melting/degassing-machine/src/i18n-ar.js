@@ -1,6 +1,7 @@
 // Arabic for every string the degassing simulator shows. Keys are the English text exactly as written in the code.
 // PLC tags (MPCB-1, C2, Speed_1), units and numbers stay as on the panel.
 export const AR = {
+  LID: 'الغطاء',
   // HMI soft keys and titles
   Home: 'الرئيسية',
   Mode: 'الوضع',

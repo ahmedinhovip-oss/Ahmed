@@ -141,16 +141,26 @@ export function createScene(canvas) {
   const spin = new THREE.Group();
   spin.position.set(G.ladleX, 0, 0);
   head.add(spin);
-  const shaft = cyl(0.05, 0.05, G.shaft, M.graphite, spin, 20);
-  shaft.position.y = 0.1 - G.shaft / 2;
-  const rotor = cyl(0.13, 0.13, 0.1, M.graphite, spin, 24);
-  rotor.position.y = 0.1 - G.shaft - 0.05 + 0.05;
-  for (let k = 0; k < 6; k++) {
-    const v = box(0.1, 0.11, 0.035, mat('#1d1e20'), 0, rotor.position.y, 0, spin);
-    const a = (k * Math.PI) / 3;
-    v.position.x = Math.cos(a) * 0.1;
-    v.position.z = Math.sin(a) * 0.1;
-    v.rotation.y = -a;
+  // Nutec NT-MQI-III graphite rotor [M drawing]: shaft Ø75 × 593 with a Ø56 thread (65 long, pitch 4.5) screwed into the
+  // steel drive shaft, a Ø12 gas bore through, and the Ø180 × 90 rotor head with its slots, screwed on (40 / 42)
+  const steelLen = G.shaft - 0.593 - 0.09;
+  const shaft = cyl(0.045, 0.045, steelLen, M.rod, spin, 20);
+  shaft.position.y = 0.1 - steelLen / 2;
+  const gShaft = cyl(0.0375, 0.0375, 0.593, M.graphite, spin, 24);
+  gShaft.position.y = 0.1 - steelLen - 0.593 / 2;
+  const thread = cyl(0.028, 0.028, 0.065, mat('#2b2c2f'), spin, 16);
+  thread.position.y = 0.1 - steelLen + 0.0325 - 0.065;
+  const rotorTop = 0.1 - G.shaft + 0.09;
+  const taper = cyl(0.0375, 0.09, 0.025, M.graphite, spin, 32);
+  taper.position.y = rotorTop - 0.0125;
+  const rotor = cyl(0.09, 0.09, 0.065, M.graphite, spin, 32);
+  rotor.position.y = rotorTop - 0.025 - 0.0325;
+  for (let k = 0; k < 8; k++) {
+    const v = box(0.04, 0.04, 0.02, mat('#1d1e20'), 0, rotor.position.y - 0.005, 0, spin);
+    const a = (k * Math.PI) / 4;
+    v.position.x = Math.cos(a) * 0.082;
+    v.position.z = Math.sin(a) * 0.082;
+    v.rotation.y = -a + Math.PI / 2;
   }
   const coupling = cyl(0.08, 0.08, 0.1, M.rod, head);
   coupling.position.set(G.ladleX, 0.05, 0);
@@ -200,6 +210,29 @@ export function createScene(canvas) {
     t.position.set(0, 0.7, z * (G.ladleR + 0.08));
   }
   // metal body (side wall) and the free surface, which carries the vortex
+  // split lid [M drawing "Lid arrangement"]: two half discs with a centre hole for the rotor shaft, hinged at the rim
+  const lidMat = mat('#8e93a6', {metalness: 0.5, side: THREE.DoubleSide});
+  const lidHalves = [1, -1].map((sg) => {
+    const shp = new THREE.Shape();
+    const r = G.ladleIn + 0.06;
+    shp.moveTo(-r, 0);
+    shp.lineTo(-0.06, 0);
+    shp.absarc(0, 0, 0.06, Math.PI, 0, true);
+    shp.lineTo(r, 0);
+    shp.absarc(0, 0, r, 0, Math.PI, false);
+    const geo = new THREE.ExtrudeGeometry(shp, {depth: 0.02, bevelEnabled: false, curveSegments: 32});
+    geo.rotateX(Math.PI / 2); // lies flat: shape y → z, extruded downward
+    geo.scale(1, 1, sg);
+    geo.translate(0, 0.02, -sg * r); // hinge line on the rim at z = ±r
+    const piv = new THREE.Group();
+    piv.position.set(0, G.ladleH + 0.035, sg * r);
+    lad.add(piv);
+    const m = new THREE.Mesh(geo, lidMat);
+    m.castShadow = true;
+    piv.add(m);
+    return {piv, sg};
+  });
+  let lidK = 0;
   const body = new THREE.Mesh(new THREE.CylinderGeometry(G.ladleIn - 0.005, G.ladleIn - 0.005, G.metalTop - G.floorIn, 48, 1, true), M.metal);
   body.position.y = (G.metalTop + G.floorIn) / 2;
   lad.add(body);
@@ -338,6 +371,10 @@ export function createScene(canvas) {
     // limit switches light green when made
     const made = [s.head <= 0.002, s.fault !== 'middle' && Math.abs(s.head - P.middleAt) < 0.03, s.head >= 0.998];
     lsMat.forEach((m, i) => m.color.set(made[i] ? '#33c24d' : '#f2f2f2'));
+    // lid: closes only with the rotor home and the baffle up; opens outward on its rim hinges
+    const lidTarget = opt.lid && s.head < 0.02 && s.baffle < 0.02 ? 1 : 0;
+    lidK += (lidTarget - lidK) * 0.08;
+    for (const h of lidHalves) h.piv.rotation.x = -h.sg * (1 - lidK) * 2.0;
     // rotor spin
     spin.rotation.y = (T * s.rpm * 2 * Math.PI) / 60;
     baffle.position.y = -G.baffleTravel * s.baffle;

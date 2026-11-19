@@ -420,19 +420,52 @@ export function createScene(canvas) {
   aMotor.position.set(0.2, 0.5, 0);
   const aBox = box(0.3, 0.35, 0.3, M.dark, 0.2, 0.95, 0.28, asmG);
   void aBox;
-  const aShaft = cyl(0.07, 0.09, 1.1, mat('#3a3b3e'), asmG, 16);
-  aShaft.position.set(0, -0.55, 0);
+  // steel drive shaft down to the flange, then the impeller of drawing 100-M-004 [M]
+  const aShaft = cyl(0.06, 0.06, 0.53, mat('#3a3b3e'), asmG, 16);
+  aShaft.position.set(0, -0.265, 0);
+  // flange (item 2): Ø265 × 20 plate, 8 × Ø18 bolts on Ø225, Ø170 barrel 100 high with the two Ø40 pin bores
+  const flMat = mat('#2f3236', {metalness: 0.6});
+  cyl(0.1325, 0.1325, 0.02, flMat, asmG, 32).position.set(0, -0.54, 0);
+  for (let k = 0; k < 8; k++) {
+    const bolt = cyl(0.009, 0.009, 0.05, mat('#c9ccd0', {metalness: 0.8}), asmG, 8);
+    bolt.position.set(Math.cos((k * Math.PI) / 4) * 0.1125, -0.53, Math.sin((k * Math.PI) / 4) * 0.1125);
+  }
+  cyl(0.085, 0.085, 0.1, flMat, asmG, 32).position.set(0, -0.6, 0);
+  const pin = cyl(0.02, 0.02, 0.22, mat('#c9ccd0', {metalness: 0.8}), asmG, 10);
+  pin.rotation.x = Math.PI / 2;
+  pin.position.set(0, -0.6, 0);
+  // impeller (item 1), one ceramic piece: tapered shaft 510 long (Ø200 at the R25 fillet to Ø130 at the top, two
+  // Ø20 pin holes 45 below the top), head Ø450 × 285: top disc 85, six 65 wide blades, bottom ring 45 with Ø310 bore
   const impG = new THREE.Group();
   impG.position.set(0, -1.32, 0);
   asmG.add(impG);
   const impMat = mat('#4a4c50', {roughness: 0.8, metalness: 0.1});
-  const impBody = cyl(0.3, 0.3, 0.32, impMat, impG, 24);
-  void impBody;
+  const headTop = 0.16;
+  cyl(0.065, 0.1, 0.51, impMat, impG, 24).position.y = headTop + 0.255;
+  cyl(0.225, 0.225, 0.085, impMat, impG, 40).position.y = headTop - 0.0425;
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.155, 0.225, 40), impMat);
+  void ring;
+  const bottom = new THREE.Mesh(new THREE.CylinderGeometry(0.225, 0.225, 0.045, 40, 1, true), impMat);
+  bottom.position.y = headTop - 0.285 + 0.0225;
+  impG.add(bottom);
+  const bottomIn = new THREE.Mesh(new THREE.CylinderGeometry(0.155, 0.155, 0.045, 40, 1, true), impMat);
+  bottomIn.position.copy(bottom.position);
+  bottomIn.material = impMat.clone();
+  bottomIn.material.side = THREE.BackSide;
+  impG.add(bottomIn);
+  const ann = new THREE.Mesh(new THREE.RingGeometry(0.155, 0.225, 40), impMat.clone());
+  ann.material.side = THREE.DoubleSide;
+  ann.rotation.x = -Math.PI / 2;
+  ann.position.y = headTop - 0.285;
+  impG.add(ann);
+  const ann2 = ann.clone();
+  ann2.position.y = headTop - 0.24;
+  impG.add(ann2);
   for (let k = 0; k < 6; k++) {
-    const v = box(0.12, 0.3, 0.05, M.dark, 0, -0.02, 0, impG);
+    const v = box(0.17, 0.155, 0.065, impMat, 0, headTop - 0.085 - 0.0775, 0, impG);
     const ang6 = (k * Math.PI) / 3;
-    v.position.x = Math.cos(ang6) * 0.28;
-    v.position.z = Math.sin(ang6) * 0.28;
+    v.position.x = Math.cos(ang6) * 0.14;
+    v.position.z = Math.sin(ang6) * 0.14;
     v.rotation.y = -ang6;
   }
   const clipsM = mat('#f0c419');

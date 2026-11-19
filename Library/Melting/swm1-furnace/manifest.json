@@ -8,7 +8,14 @@
     "simulator": "SWM1-furnace-simulator.html",
     "video": "SWM1-furnace-tour-20s.mp4",
     "sources": [
-      {"label": "User manual · Procedures", "file": "docs/1987-MA-005-0-OTE-MOP-003 User Manual - Procedures.pdf"}
+      {
+        "label": "User manual · Procedures",
+        "file": "docs/1987-MA-005-0-OTE-MOP-003 User Manual - Procedures.pdf"
+      },
+      {
+        "label": "Drawing 100-M-004: Aluswirler impeller and flange",
+        "file": "docs/100-M-004 Impeller and flange.pdf"
+      }
     ],
     "readme": "README.md",
     "poster": "poster.jpg"

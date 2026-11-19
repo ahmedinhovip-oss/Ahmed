@@ -47,7 +47,7 @@ function boot() {
     <div class="ttl"><b>DEGASSING MACHINE</b><span>Rotary degassing · operator simulator</span></div>
     <div class="views">${Object.entries(VIEWS)
       .map(([k, v], i) => `<button class="vb" data-view="${k}"><i>${i + 1}</i>${v.label}</button>`)
-      .join('')}<button class="vb tg" data-tog="cut"><i>C</i>CUTAWAY</button><button class="vb tg" data-tog="labels"><i>L</i>LABELS</button></div>
+      .join('')}<button class="vb tg" data-tog="cut"><i>C</i>CUTAWAY</button><button class="vb tg" data-tog="lid">LID</button><button class="vb tg" data-tog="labels"><i>L</i>LABELS</button></div>
     <div class="labels"></div>
     <div class="cap"><span class="ck"></span><span class="ct"></span></div>
     <div class="ctrl">
@@ -73,7 +73,7 @@ function boot() {
   // ---------------------------------------------------------------- plant and HMI
   let s = createPlant('ready');
   let speed = 1;
-  const ui = {cut: 0, cutOn: false, labelsOn: true, labels: 1, view: 'overview', hiT: -9};
+  const ui = {lidOn: false, cut: 0, cutOn: false, labelsOn: true, labels: 1, view: 'overview', hiT: -9};
   const LIM = {speed1: [0, 200], speed2: [0, 650], speed3: [0, 450], low: [0, 60], high: [0, 60], fluxRate: [100, 250], vortex: [0, 30], fluxing: [0, 30], mixing: [0, 30], degassing: [0, 30], downDelay: [0, 10], upDelay: [0, 10], pMin: [0, 5], pMax: [0, 5], lowMin: [0, 60], lowMax: [0, 60], highMin: [0, 60], highMax: [0, 60]};
   const act = (name, arg) => {
     if (name.startsWith('m:')) return cmd.manual(s, name.slice(2));
@@ -268,6 +268,7 @@ function boot() {
     const t = e.target.closest('[data-tog]');
     if (t) {
       if (t.dataset.tog === 'cut') ui.cutOn = !ui.cutOn;
+      else if (t.dataset.tog === 'lid') ui.lidOn = !ui.lidOn;
       else ui.labelsOn = !ui.labelsOn;
     }
     const sc = e.target.closest('[data-scn]');
@@ -387,7 +388,7 @@ function boot() {
     ui.labels += ((ui.labelsOn ? 1 : 0) - ui.labels) * (1 - Math.exp(-dt / 0.2));
     st.setCamera({...cam, az: cam.az * D2R, el: cam.el * D2R}, SW, H);
     const hiK = clamp(1 - (T - ui.hiT - 2.5) / 0.6, 0, 1);
-    st.update(s, {cut: ui.cut, labels: ui.labels, focus: v.focus, hiK});
+    st.update(s, {lid: ui.lidOn, cut: ui.cut, labels: ui.labels, focus: v.focus, hiK});
     st.renderer.render(st.scene, st.camera);
 
     // labels
@@ -416,6 +417,7 @@ function boot() {
       for (const b of ov.querySelectorAll('[data-view]')) b.classList.toggle('on', b.dataset.view === ui.view);
       ov.querySelector('[data-tog=cut]').classList.toggle('on', ui.cutOn);
       ov.querySelector('[data-tog=labels]').classList.toggle('on', ui.labelsOn);
+      ov.querySelector('[data-tog=lid]').classList.toggle('on', ui.lidOn);
       for (const b of ov.querySelectorAll('[data-spd]')) b.classList.toggle('on', Number(b.dataset.spd) === speed);
       tourBtn.classList.toggle('on', tour.on);
       tourBtn.querySelector('span').textContent = t(tour.on ? 'GUIDED TOUR · CLICK TO TAKE OVER' : '▶ RESTART GUIDED TOUR');

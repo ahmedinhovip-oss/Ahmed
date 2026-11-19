@@ -8,11 +8,22 @@
     "simulator": "Degassing-machine-simulator.html",
     "video": "Degassing-machine-tour-20s.mp4",
     "sources": [
-      {"label": "Working and maintenance manual", "file": "docs/Degassing Machine - Working and Maintenance Manual (Nutec-Thermo).pdf"}
+      {
+        "label": "Working and maintenance manual",
+        "file": "docs/Degassing Machine - Working and Maintenance Manual (Nutec-Thermo).pdf"
+      },
+      {
+        "label": "Drawing: graphite degassing rotor (NT-MQI-III)",
+        "file": "docs/Degassing rotor NT-MQI-III (Nutec drawing).pdf"
+      },
+      {
+        "label": "Drawing: ladle lid arrangement",
+        "file": "docs/Lid arrangement.pdf"
+      }
     ],
     "readme": "README.md",
     "poster": "poster.jpg"
   },
   "built_with": "teardown skill (.claude/skills/teardown)",
-  "updated": "2026-11-18"
+  "updated": "2026-11-19"
 }

@@ -72,3 +72,16 @@ or melt chemistry. These are assumptions, marked `[A]` in `src/model.js`:
 | `src/style.css` | styles |
 | `film/` | video timeline, soundtrack and frame recorder |
 | `docs/` | the source manual |
+
+## Rotor and lid (drawings)
+
+- **Rotor:** built to the Nutec drawing **Degassing rotor, NT-MQI-III** (graphite, `docs/Degassing rotor NT-MQI-III
+  (Nutec drawing).pdf`).
+  - **Shaft:** Ø75 × 593. Its Ø56 thread (65 long, 4.5 mm pitch) screws into the steel drive shaft, and a Ø12 gas bore
+    runs through it.
+  - **Head:** Ø180 × 90, with slots, screwed onto the shaft.
+  - **Assumed:** the steel drive shaft above the graphite makes up the rest of the length to the motor coupling.
+- **Lid:** from **Lid arrangement** (`docs/Lid arrangement.pdf`), two half discs with a centre hole for the rotor
+  shaft. The **LID** button on the 3D closes it.
+  - **Assumed:** the drawing shows no hinge details or interlock, so in the simulator the lid closes only with the
+    rotor at home and the baffle up, and hangs open over the rim otherwise.
