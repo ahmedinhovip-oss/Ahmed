@@ -1,0 +1,18 @@
+{
+  "id": "hc01-furnace",
+  "area": "Melting",
+  "title": "HC01 Melting Furnace",
+  "equipment": "FRSW 1-25 melting furnace (Insertec), tag HC01, fed from HA01",
+  "summary": "Operator training simulator: the furnace in 3D beside the cabinet HMI, with combustion start-up, transfer in from HA01 with its four conditions, the door, alarms and trends, a guided tour and fault injection. English and Arabic.",
+  "files": {
+    "simulator": "HC01-furnace-simulator.html",
+    "video": "HC01-furnace-tour-20s.mp4",
+    "sources": [
+      {"label": "HMI user manual", "file": "docs/1983-MA-005-0-OTE-MOP-002 User Manual - HMI Description.docx"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-19"
+}
