@@ -1,0 +1,18 @@
+{
+  "id": "ingot-casting-machine",
+  "area": "Melting",
+  "title": "Ingot Casting Machine",
+  "equipment": "ENTEC Industrial Furnaces ingot casting machine: chain mould conveyor, 5 HP motor with Sumiko SU-412 gearbox on a 5 HP VFD, distributor, water sprays and cooling tower, discharge hammers",
+  "summary": "Operating simulator: the preparations and preheat, the VFD panel and potentiometer, the pour from the furnace matched to the conveyor speed, spray cooling, hammers and discharge temperature, with the manual's warnings (water on the moulds, abrupt potentiometer, ingot riding round) and its vibration troubleshooting. English and Arabic.",
+  "files": {
+    "simulator": "Ingot-casting-machine-simulator.html",
+    "video": "Ingot-casting-machine-tour-20s.mp4",
+    "sources": [
+      {"label": "User manual and troubleshooting", "file": "docs/Ingot casting machine - user manual and troubleshooting.pdf"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-19"
+}
