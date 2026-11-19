@@ -1,0 +1,18 @@
+{
+  "id": "eot-crane-2t",
+  "area": "CNC",
+  "title": "2.0 t Single Girder EOT Crane · CNC Bay",
+  "equipment": "Safex Industries machine no. 2199, 2.0 t single girder EOT crane, span 22.285 m, lift 4.4 m, class M5, all motions on VFDs",
+  "summary": "Pendant-operated simulator of the crane in its 32 m bay: hoist, cross and long travel at the tested speeds, motor currents, the girder bending under load, the overload device and test key, and the tests of the inspection report (speed, ampere, deflection, load and overload) recorded as you run them. English and Arabic.",
+  "files": {
+    "simulator": "EOT-crane-2t-simulator.html",
+    "video": "EOT-crane-2t-tour-20s.mp4",
+    "sources": [
+      {"label": "Review documents: inspection report, history sheet, tests, certificates, GA drawing", "file": "docs/SYNERGIES 2T 22.285 MTRS SG EOT CRANE REVIEW DOCUMENTS.pdf"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-19"
+}

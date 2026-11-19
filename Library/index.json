@@ -37,7 +37,9 @@
       "id": "cnc",
       "name": "CNC",
       "folder": "CNC",
-      "packages": []
+      "packages": [
+        "eot-crane-2t"
+      ]
     },
     {
       "id": "paint-line",

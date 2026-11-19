@@ -24,6 +24,6 @@ Library/
 | Casting | none yet |
 | Die Maintenance | none yet |
 | Heat Treatment | none yet |
-| CNC | none yet |
+| CNC | [2.0 t EOT Crane](CNC/eot-crane-2t/README.md) |
 | Paint Line | none yet |
 | Packing | none yet |
