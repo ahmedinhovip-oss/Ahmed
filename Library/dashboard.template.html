@@ -131,7 +131,7 @@ function card(p) {
       <h3>${esc(p.title)}</h3>
       <p class="eq">${esc(p.equipment)}</p>
       <p class="sum">${esc(p.summary)}</p>
-      ${p.sim ? `<a class="open" href="${res(p.sim)}" target="_blank" rel="noopener">Open 3D simulator</a>` : ''}
+      ${p.sim ? `<a class="open" href="${res(p.sim)}" target="_blank" rel="noopener">${esc(p.simLabel || 'Open 3D simulator')}</a>` : ''}
       <div class="dl"><span class="lbl">Downloads</span>
         ${docs}
         ${p.video ? `<a href="${res(p.video)}" download="${esc(p.videoName)}"><span>Tour video</span><span class="meta"><b>MP4</b> ${mb(p.videoSize)}</span></a>` : ''}

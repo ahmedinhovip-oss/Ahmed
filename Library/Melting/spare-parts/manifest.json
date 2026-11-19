@@ -1,0 +1,22 @@
+{
+  "id": "spare-parts",
+  "area": "Melting",
+  "title": "Melting System · Spare Parts Catalogue",
+  "equipment": "Insertec spare-parts list CE-2019-019.2 (CMR-1993-001.2) for HA#1, HC#1, DOS, TIL, SWM#1, SWM#2, IDEX, PRE, REW, launders",
+  "summary": "Searchable catalogue of the 176 spare parts (228,148 €) for the whole melting system: filter by system, machine, critical/consumable and shared parts, with value by system and each part's drawing, mark, price and the machines it serves. English and Arabic.",
+  "files": {
+    "simulator": "Melting-spare-parts-catalogue.html",
+    "video": "Melting-spare-parts-tour-20s.mp4",
+    "sources": [
+      {
+        "label": "Insertec spare-parts list",
+        "file": "docs/Insertec Spare Parts List CE-2019-019.2 (Melting system).pdf"
+      }
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown kit bundler (.claude/skills/teardown)",
+  "updated": "2026-11-19",
+  "simulator_label": "Open spare-parts catalogue"
+}

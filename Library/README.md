@@ -20,7 +20,7 @@ Library/
 
 | Area | Machines |
 |---|---|
-| Melting | [HA01 Melting Furnace](Melting/ha01-furnace/README.md), [HC01 Melting Furnace](Melting/hc01-furnace/README.md), [Degassing Machine](Melting/degassing-machine/README.md), [Dust Collector](Melting/dust-collector/README.md), [SWM#1 Procedure Trainer](Melting/swm1-furnace/README.md), [Vibratory Feeder](Melting/vibratory-feeder/README.md) |
+| Melting | [HA01 Melting Furnace](Melting/ha01-furnace/README.md), [HC01 Melting Furnace](Melting/hc01-furnace/README.md), [Degassing Machine](Melting/degassing-machine/README.md), [Dust Collector](Melting/dust-collector/README.md), [SWM#1 Procedure Trainer](Melting/swm1-furnace/README.md), [Vibratory Feeder](Melting/vibratory-feeder/README.md), [Spare Parts Catalogue](Melting/spare-parts/README.md) |
 | Casting | none yet |
 | Die Maintenance | none yet |
 | Heat Treatment | none yet |

@@ -64,6 +64,7 @@ def main():
                 "updated": m.get("updated", ""),
                 "sim": ref(folder, base, f["simulator"]) if f.get("simulator") else None,
                 "simName": os.path.basename(f.get("simulator", "")),
+                "simLabel": m.get("simulator_label", ""),
                 "simSize": size(f.get("simulator", "")),
                 "video": ref(folder, base, f["video"]) if f.get("video") else None,
                 "videoName": os.path.basename(f.get("video", "")),
