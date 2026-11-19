@@ -246,7 +246,7 @@ function boot() {
     {at: 6.6, view: 'inside', cap: 'Both burners prove more than 10 µA of flame signal and modulate.'},
     {at: 9.4, ptr: H_('[data-nav=status]'), run: () => ((speed = 2), act('screen', 'status')), view: 'pump', cap: 'Transfer from HA01: Emergency OK, TRF Pump Ready, HC01 TRF Gate open.'},
     {at: 10.6, ptr: H_('[data-a=hc01]'), run: () => act('hc01')},
-    {at: 11.8, ptr: H_('[data-a=pumpOn]'), run: () => ((speed = 90), act('pumpOn')), cap: 'START TRANSFER: the level rises to the working-level rod and the transfer stops.'},
+    {at: 11.8, ptr: H_('[data-a=pumpOn]'), run: () => ((speed = 320), act('pumpOn')), cap: 'START TRANSFER: the level rises to the working-level rod and the transfer stops.'},
     {at: 16.8, view: 'overview', run: () => (speed = 6), cap: 'Full furnace: the orange lamp lights and loading stops.'},
     {at: 20, end: true},
   ];
