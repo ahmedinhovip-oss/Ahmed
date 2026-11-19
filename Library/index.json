@@ -8,7 +8,8 @@
       "packages": [
         "ha01-furnace",
         "degassing-machine",
-        "dust-collector"
+        "dust-collector",
+        "swm1-furnace"
       ]
     },
     {

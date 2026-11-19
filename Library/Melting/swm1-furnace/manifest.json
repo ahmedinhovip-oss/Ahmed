@@ -1,0 +1,18 @@
+{
+  "id": "swm1-furnace",
+  "area": "Melting",
+  "title": "SWM#1 Sidewell Melter · Procedure Trainer",
+  "equipment": "FVGP-A 3-30 sidewell melting furnace with Aluswirler vortex (Insertec), tag SWM#1",
+  "summary": "Interactive trainer for the seven procedures of the user manual: pre-operation inspection, warm-up, permanent regime with the vortex and scrap, chamber cleaning, emptying in four phases, impeller change and long stop. Every step is checked against the plant state and every violation recorded. English and Arabic.",
+  "files": {
+    "simulator": "SWM1-furnace-simulator.html",
+    "video": "SWM1-furnace-tour-20s.mp4",
+    "sources": [
+      {"label": "User manual · Procedures", "file": "docs/1987-MA-005-0-OTE-MOP-003 User Manual - Procedures.pdf"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-19"
+}
