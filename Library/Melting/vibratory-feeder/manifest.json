@@ -1,0 +1,18 @@
+{
+  "id": "vibratory-feeder",
+  "area": "Melting",
+  "title": "Vibratory Feeder · Magnetic Separator Line",
+  "equipment": "Motorised vibratory feeder 500 × 2000 mm SS-304, 2 × 0.5 HP 1440 rpm unbalance motors (Electro Magnetic Industries)",
+  "summary": "Set-up and operating simulator: eccentric weights, motor rotation, the five checks before starting, bin openings against particle size, and the overband magnet at the discharge. Wrong settings show their effect: rocking instead of throw, fatigue cracks, bridging. English and Arabic.",
+  "files": {
+    "simulator": "Vibratory-feeder-simulator.html",
+    "video": "Vibratory-feeder-tour-20s.mp4",
+    "sources": [
+      {"label": "Installation, operation and maintenance manual", "file": "docs/Vibratory Feeder (Magnetic Separator line) - IOM Manual.pdf"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-19"
+}
