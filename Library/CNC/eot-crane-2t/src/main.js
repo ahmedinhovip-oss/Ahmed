@@ -344,7 +344,7 @@ function boot() {
     // camera
     const v = VIEWS[ui.view];
     const w = v.follow && st.WHERE[v.follow];
-    const tgt = {tx: w ? w[0] : v.tx, ty: w ? w[1] : v.ty, tz: w ? w[2] : v.tz, az: v.az + off.az, el: clamp(v.el + off.el, -15, 75), d: v.d * off.k};
+    const tgt = {tx: w ? w[0] : (v.tx ?? cam.tx), ty: w ? w[1] : (v.ty ?? cam.ty), tz: w ? w[2] : (v.tz ?? cam.tz), az: v.az + off.az, el: clamp(v.el + off.el, -15, 75), d: v.d * off.k};
     const ck = 1 - Math.exp(-dt / 0.35);
     cam.az += wrap(tgt.az - cam.az) * ck;
     for (const key of ['tx', 'ty', 'tz', 'el', 'd']) cam[key] += (tgt[key] - cam[key]) * ck;

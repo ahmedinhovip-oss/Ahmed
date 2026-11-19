@@ -1,0 +1,18 @@
+{
+  "id": "launder-pump",
+  "area": "Melting",
+  "title": "Launder Transfer Pump · MINI-902L",
+  "equipment": "Molten Metal Equipment Innovations MINI-902L-22ABL0 launder pump: 4 HP 1000 rpm 400 V 50 Hz motor, 3 in shaft, 7 in hook rotor, snouted base, L length (1861 mm)",
+  "summary": "Assembly and operating simulator: fit the 14 items of the bill of materials in order with their bolts, preheat the pump over the bath, immerse it, start slowly on the VFD and transfer metal up the riser into the launder, watching the flow fall as the furnace empties, the pump minimum level, a jammed rotor and dross in the base. English and Arabic.",
+  "files": {
+    "simulator": "Launder-pump-simulator.html",
+    "video": "Launder-pump-tour-20s.mp4",
+    "sources": [
+      {"label": "Assembly drawing MINI-902X-22ABL0 rev B (bill of materials, lengths, dimensions)", "file": "docs/MINI launder transfer pump MINI-902L-22ABL0 (MMEI drawing).pdf"}
+    ],
+    "readme": "README.md",
+    "poster": "poster.jpg"
+  },
+  "built_with": "teardown skill (.claude/skills/teardown)",
+  "updated": "2026-11-19"
+}
