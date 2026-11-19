@@ -45,7 +45,7 @@ function boot() {
   ov.className = 'ov';
   app.appendChild(ov);
   ov.innerHTML = `
-    <div class="ttl"><b>VIBRATORY FEEDER · MAGNETIC SEPARATOR LINE</b><span>Electro Magnetic Industries · operator simulator</span></div>
+    <div class="ttl"><b>VIBRATORY FEEDER</b><span>Magnetic separator line · operator simulator</span></div>
     <div class="views">${Object.entries(VIEWS)
       .map(([k, v], i) => `<button class="vb" data-view="${k}"><i>${i + 1}</i>${v.label}</button>`)
       .join('')}<button class="vb tg" data-tog="cut"><i>C</i>CUTAWAY</button><button class="vb tg" data-tog="labels"><i>L</i>LABELS</button></div>

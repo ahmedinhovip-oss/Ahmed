@@ -84,7 +84,7 @@ export const AR = {
   'Trough-to-motor bolts tightened': 'رُبطت مسامير المجرى مع المحركات',
   // 3D side
   'VIBRATORY FEEDER · MAGNETIC SEPARATOR LINE': 'المغذي الاهتزازي · خط الفاصل المغناطيسي',
-  'Electro Magnetic Industries · operator simulator': 'Electro Magnetic Industries · محاكي المشغّل',
+  'Magnetic separator line · operator simulator': 'خط الفاصل المغناطيسي · محاكي المشغّل',
   OVERVIEW: 'نظرة عامة',
   'VIBRATORY MOTORS': 'المحركات الاهتزازية',
   'TROUGH & FLOW': 'المجرى والتدفق',
