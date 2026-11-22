@@ -4,7 +4,8 @@ A 3D office where the AI team of Synergies Castings lives a working day: they ar
 the daily stand-up, take the coffee break, sit in Hisham's skill session, visit each other's desks and go
 home. Click anyone to read their job description. English / Arabic switch at the top right.
 
-**Open `AI-Office.html`** in any browser. It is one offline file and needs no internet.
+**Open `AI-Office.html`** in any browser (one offline file), or the private link
+https://claude.ai/artifact/KvSEzhYshRYv61Bbpn1B3q, refreshed by every daily run.
 
 | Control | What it does |
 |---|---|
@@ -53,9 +54,10 @@ him at the head of the table.
 - `make_status.py` collects the reports into `status.json`; the office shows them (click a person → Latest work) and
   the dashboard banner shows each agent's status and the latest stand-up minutes.
 - `RUN.md` is the daily run: every agent does its routine, Ali writes the minutes, everything is rebuilt and pushed.
-  Say "Run the AI office for today" to Claude Code in this repository, or schedule it (Sun–Thu 07:40).
+  Scheduled every Sun–Thu at 07:40 Muscat (approved 22 Nov); or say "Run the AI office for today" to Claude Code.
 - Rules: read-only on mail and files; anything leaving the team is a draft; no numbers invented; no skill installed
   without Ahmed's yes.
 - First run (22 Nov): Hisham (skills research) and Ahmed (Equipment Library audit) did real work; Ram, Aiman and Saif
   wait for their files; Ali's minutes list 4 decisions for Ahmed.
-- Not connected yet: Microsoft 365 (Outlook, OneDrive, SharePoint, Teams). Until then files come through the chat.
+- Skills installed 22 Nov: 8D Guru, Excel Hygiene, HR Recruiting (`.claude/skills/INSTALLED.md`).
+- Microsoft 365 connector added; the Microsoft sign-in is still to be finished. Until then files come through the chat.

@@ -1,0 +1,37 @@
+# llms.txt
+
+> Context file for LLMs and agent marketplaces discovering this skill.
+
+## What is this?
+
+`8d-guru` is a pure-markdown Layer 1 skill that coaches AI agents through structured 8D quality investigations.
+
+Unlike template-based 8D tools that accept whatever you type, 8d-guru actively challenges your answers, pushes for first-principles depth, and scores every key response on an industry-standard Insufficient/Basic/Excellent scale.
+
+It is stateless. No Python, no CLI, no storage, no channels. Just ~90 markdown files with high methodology density.
+
+## Key differentiators
+
+- **5-state exploration cycle per D** (S1 divergent → S2 first-principles → S3 falsification → S4 scoring → S5 deliverable) — not linear Q&A
+- **Industry-standard answer scoring** with custom rubrics per question point
+- **Falsification challenges** built into every prompt — actively tries to disprove your conclusions
+- **First-principles anchors** at key nodes: physical mechanism, design assumptions, control loops, human factors, organizational layer
+- **Dual root cause** (TRC + MRC 4-elements + Escape Point) per ASQ/MAHLE/BSH standards
+- **Poka-Yoke hierarchy** enforcement (elimination > detection > mitigation)
+- **Statistical evidence required** before closure (Cpk≥1.33, Red Rabbit, confidence intervals)
+- **Default quality methodology framework**: PDCA, CAPA, statistical thinking, process approach, risk-based thinking, Lean 8 wastes, systems thinking, MSA — applied silently even without explicit standards
+- **Industry profiles**: IATF 16949 (automotive) and ISO 9001:2015 (general QMS) with clause-level enforcement and audit-ready hard gates
+- **Bayesian hypothesis tracking**, temporal pattern detection, and TRIZ 8 principles for deeper root cause analysis
+
+## How to use it
+
+Mount this repository as a skill in any agent runtime (Claude Code, Codex, OpenClaw). The agent reads `SKILL.md` and follows the 5-state cycle through D0 to D8.
+
+## I/O
+
+Input: user's natural-language quality complaint.
+Output: scored structured answers per question point, gate status with blockers, role-ready draft deliverables (Basic + Excellent templates).
+
+## Source
+
+https://github.com/jilanfang/8d-guru

@@ -69,5 +69,7 @@ summary_ar: <the line in Arabic>
 - End every report with: done today, planned tomorrow, blockers.
 
 ## Tools (Phase 2, not connected yet)
-- Production log on OneDrive
+- Production log (OneDrive, via Microsoft 365)
 - Equipment Library
+- Excel Hygiene skill
+- 8D Guru skill

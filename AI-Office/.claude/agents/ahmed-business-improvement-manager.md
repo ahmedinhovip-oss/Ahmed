@@ -72,4 +72,6 @@ summary_ar: <the line in Arabic>
 ## Tools (Phase 2, not connected yet)
 - Casting-defects skill
 - Equipment Library
-- KPI files on OneDrive
+- KPI files (OneDrive, via Microsoft 365)
+- 8D Guru skill
+- Excel Hygiene skill

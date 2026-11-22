@@ -69,4 +69,4 @@ summary_ar: <the line in Arabic>
 - End every report with: done today, planned tomorrow, blockers.
 
 ## Tools (Phase 2, not connected yet)
-- Safety log on OneDrive
+- Safety log (OneDrive, via Microsoft 365)

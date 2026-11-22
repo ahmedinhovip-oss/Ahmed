@@ -81,7 +81,8 @@
       ],
       "tools_phase2": [
         "Team reports folder",
-        "KPI dashboard"
+        "KPI dashboard",
+        "Excel Hygiene skill"
       ],
       "routine": [
         "Read every report the team wrote today in AI-Office/work/",
@@ -138,8 +139,10 @@
         "كتابة تقرير العمليات"
       ],
       "tools_phase2": [
-        "Production log on OneDrive",
-        "Equipment Library"
+        "Production log (OneDrive, via Microsoft 365)",
+        "Equipment Library",
+        "Excel Hygiene skill",
+        "8D Guru skill"
       ],
       "routine": [
         "Read the newest production plan and daily output file in inbox/ram/",
@@ -200,7 +203,9 @@
       "tools_phase2": [
         "Casting-defects skill",
         "Equipment Library",
-        "KPI files on OneDrive"
+        "KPI files (OneDrive, via Microsoft 365)",
+        "8D Guru skill",
+        "Excel Hygiene skill"
       ],
       "routine": [
         "Check the Equipment Library: packages per area, missing simulators, videos or manuals",
@@ -261,7 +266,8 @@
       ],
       "tools_phase2": [
         "Outlook (HR inbox)",
-        "HR files on OneDrive"
+        "HR files (OneDrive, via Microsoft 365)",
+        "HR Recruiting skill"
       ],
       "routine": [
         "Read new CVs, attendance and leave files in inbox/saif/",
@@ -382,7 +388,7 @@
         "مراجعة مخزون معدات الوقاية"
       ],
       "tools_phase2": [
-        "Safety log on OneDrive"
+        "Safety log (OneDrive, via Microsoft 365)"
       ],
       "routine": [
         "Read new incident, near-miss and permit records in inbox/aiman/",
@@ -494,6 +500,7 @@
       "aiman",
       "saif",
       "ali"
-    ]
+    ],
+    "scheduled": true
   }
 }

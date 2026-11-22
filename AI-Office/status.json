@@ -11,6 +11,17 @@
     "summary_ar": "وكيلان من 6 أنجزا عملًا حقيقيًا (هشام وأحمد)؛ 3 بانتظار البيانات. 4 قرارات لأحمد و6 إجراءات مفتوحة.",
     "file": "work/ali/2026-11-22-standup-minutes.md",
     "body": "# Daily stand-up — Sunday 22 Nov 2026\n\n**Chair:** Ali (CEO) · **Present:** Ram, Ahmed, Saif, Hisham, Aiman\n\n## Round the table\n\n| Who | Done | Status |\n|---|---|---|\n| Hisham | Searched GitHub, read 5 skill libraries, recommends 3 skills (8D Guru, Excel Hygiene, HR Recruiting) | ✅ done |\n| Ahmed | Audited the Equipment Library: 10 machines, all complete; 5 of 7 areas empty | ✅ done |\n| Ram | Routine ready; needs production plan, actual output, downtime log | ⏳ waiting for data |\n| Aiman | Routine ready; needs incident log, open actions, permit register | ⏳ waiting for data |\n| Saif | Routine ready; needs job descriptions, CVs, attendance, visa/contract list | ⏳ waiting for data |\n\n## Decisions for Ahmed (yes / no)\n\n1. **Connect Microsoft 365** (Outlook, OneDrive, SharePoint, Teams: read-only search) so the team reads its own files\n   and mail instead of waiting for uploads?\n2. **Install Hisham's three skills** (8D Guru, Excel Hygiene, HR Recruiting) into the project?\n3. **Run the team automatically** every working day (Sun–Thu, 07:40 Muscat): each agent does its routine, I write these\n   minutes, the office and dashboard are updated?\n4. **Casting next** for the Equipment Library (Ahmed's proposal)?\n\n## Actions\n\n| # | Action | Owner | Due |\n|---|---|---|---|\n| 1 | Send production plan, actual output and downtime log | Ahmed (human) → Ram | 24 Nov |\n| 2 | Send incident / near-miss log and permit register | Ahmed (human) → Aiman | 24 Nov |\n| 3 | Send HR files (JDs, CVs, attendance, expiry list) | Ahmed (human) → Saif | 24 Nov |\n| 4 | Send scrap, downtime and energy data (3 months) | Ahmed (human) → Ahmed | 24 Nov |\n| 5 | Install approved skills; outline a plant-safety skill | Hisham | after decision 2 |\n| 6 | Send the Casting machine manuals | Ahmed (human) | 30 Nov |\n\n**Rule reminded:** nobody sends anything outside the team. Letters, emails and purchase requests are drafts for a human."
+   },
+   {
+    "agent": "ali",
+    "date": "2026-11-22",
+    "title": "Decisions taken by Ahmed",
+    "title_ar": "قرارات اتخذها أحمد",
+    "status": "done",
+    "summary": "Ahmed said yes to all four: Microsoft 365, the three skills, the daily automatic run (Sun–Thu 07:40) and Casting next.",
+    "summary_ar": "وافق أحمد على القرارات الأربعة: Microsoft 365، المهارات الثلاث، التشغيل اليومي التلقائي (الأحد–الخميس 07:40)، والصب كمنطقة تالية.",
+    "file": "work/ali/2026-11-22-standup-minutes-decisions.md",
+    "body": "# Decisions — 22 Nov 2026\n\n| # | Decision | Answer | Follow-up |\n|---|---|---|---|\n| 1 | Connect Microsoft 365 | **Yes** | Connector added to the account; Ahmed still has to finish the Microsoft sign-in in claude.ai Settings → Connectors. Until then files come through the chat. |\n| 2 | Install Hisham's three skills | **Yes** | Done and tested (Hisham's report). |\n| 3 | Run the team automatically | **Yes** | Scheduled: every Sun–Thu at 07:40 Muscat. Each run: routines → minutes → office and dashboard rebuilt → pushed. |\n| 4 | Casting next in the Equipment Library | **Yes** | Ahmed (human) to send the Casting machine manuals (action 6). |\n\nOpen actions 1–4 and 6 from the stand-up minutes stay open until the files arrive."
    }
   ],
   "ram": [
@@ -53,6 +64,19 @@
    }
   ],
   "hisham": [
+   {
+    "agent": "hisham",
+    "date": "2026-11-22",
+    "title": "Three skills installed",
+    "title_ar": "تثبيت ثلاث مهارات",
+    "status": "done",
+    "summary": "Ahmed approved; 8D Guru, Excel Hygiene and HR Recruiting are installed and tested. Excel Hygiene found all 5 planted errors in its test file.",
+    "summary_ar": "وافق أحمد؛ تم تثبيت 8D Guru و Excel Hygiene و HR Recruiting واختبارها. وجدت Excel Hygiene الأخطاء الخمسة في ملف الاختبار.",
+    "skill_of_day": "8D investigations with 8D Guru",
+    "skill_of_day_ar": "تحقيقات 8D باستخدام 8D Guru",
+    "file": "work/hisham/2026-11-22-skills-installed.md",
+    "body": "# Three skills installed\n\nApproved by Ahmed on 22 Nov. Installed in `.claude/skills/` at fixed versions (listed in `.claude/skills/INSTALLED.md`),\nso every agent run in this project can use them.\n\n| Skill | Who uses it | Test |\n|---|---|---|\n| **8d-guru** | Ahmed, Ram | Loads; markdown only. First real use: the next customer complaint. |\n| **excel-hygiene** | Ram, Ahmed, Ali | Ran its checker on its sample workbook: found all 5 planted errors (a number stored as text, a percent typed as 15 instead of 0.15, …). Will check every Excel file sent to Ram and Ahmed before they use it. |\n| **hr-recruiting** | Saif | Loads; markdown only. First real use: the first CVs sent to Saif. |\n\nEach team member's tool list in the office now shows the skills they use.\n\n**Done today:** install and test. **Planned:** outline a plant-safety skill for Aiman when his first incident log arrives.\n**Blockers:** none."
+   },
    {
     "agent": "hisham",
     "date": "2026-11-22",

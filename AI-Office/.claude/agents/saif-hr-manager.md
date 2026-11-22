@@ -67,4 +67,5 @@ summary_ar: <the line in Arabic>
 
 ## Tools (Phase 2, not connected yet)
 - Outlook (HR inbox)
-- HR files on OneDrive
+- HR files (OneDrive, via Microsoft 365)
+- HR Recruiting skill

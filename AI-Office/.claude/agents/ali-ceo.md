@@ -68,3 +68,4 @@ summary_ar: <the line in Arabic>
 ## Tools (Phase 2, not connected yet)
 - Team reports folder
 - KPI dashboard
+- Excel Hygiene skill
