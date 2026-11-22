@@ -1,4 +1,4 @@
-# AI Office — Phase 1
+# AI Office
 
 A 3D office where the AI team of Synergies Castings lives a working day: they arrive, work at their desks, walk to
 the daily stand-up, take the coffee break, sit in Hisham's skill session, visit each other's desks and go
@@ -46,11 +46,16 @@ him at the head of the table.
   end-of-day report to the CEO 15:30 (chair Ali) [A].
 - Breaks: coffee 10:00–10:20, lunch 12:15–13:00 [A].
 
-## Phase 2 (not started)
+## Phase 2: real work (started 22 Nov 2026)
 
-The agent files already hold each person's job; to make them do real work:
-
-1. Run Claude Code inside this folder: `/agents` lists the team; ask e.g. "Hisham, find three new skills on GitHub".
-2. Connect what each needs (`tools_phase2` in `team.json`): Outlook, OneDrive folders, GitHub.
-3. Turn each meeting in `team.json` into a scheduled task that writes minutes and reports.
-4. Feed the real status of each agent into the office so the characters show what the agents are actually doing.
+- Each agent has a **daily routine**, an **inbox** (`inbox/<id>/`, files Ahmed sends) and a **work folder**
+  (`work/<id>/`, its dated reports with a header: status done / waiting / blocked, summary in English and Arabic).
+- `make_status.py` collects the reports into `status.json`; the office shows them (click a person → Latest work) and
+  the dashboard banner shows each agent's status and the latest stand-up minutes.
+- `RUN.md` is the daily run: every agent does its routine, Ali writes the minutes, everything is rebuilt and pushed.
+  Say "Run the AI office for today" to Claude Code in this repository, or schedule it (Sun–Thu 07:40).
+- Rules: read-only on mail and files; anything leaving the team is a draft; no numbers invented; no skill installed
+  without Ahmed's yes.
+- First run (22 Nov): Hisham (skills research) and Ahmed (Equipment Library audit) did real work; Ram, Aiman and Saif
+  wait for their files; Ali's minutes list 4 decisions for Ahmed.
+- Not connected yet: Microsoft 365 (Outlook, OneDrive, SharePoint, Teams). Until then files come through the chat.

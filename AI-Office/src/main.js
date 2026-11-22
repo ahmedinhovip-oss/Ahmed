@@ -1,10 +1,12 @@
-// AI Office, Phase 1: the team from team.json lives a working day in a 3D office.
+// AI Office: the team from team.json lives a working day in a 3D office.
 // Time runs on a simulated clock (1x = 15 office-seconds per second). Each person asks plan.js where to be,
 // walks there on the grid from office.js, and takes the pose of what they are doing.
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {CSS2DRenderer} from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import team from '../team.json';
+import status from '../status.json';
+import {md} from './md.js';
 import {buildOffice} from './office.js';
 import {makePerson, poseTargets, applyPose} from './people.js';
 import {makePlanner, fmt, hm, DAYS} from './plan.js';
@@ -53,7 +55,7 @@ app.innerHTML = `
   <p class="hint" data-t="Click a person or a name to see the job description."></p>
 </aside>
 <aside id="detail" class="panel pright hidden"></aside>
-<footer class="note" data-t="Phase 1: the office and the job descriptions. The agents do not do real work yet."></footer>
+<footer class="note" data-t="Reports are the agents' real work. Walking and the clock are a simulation."></footer>
 `;
 
 // ---------------------------------------------------------------- 3D
@@ -310,7 +312,7 @@ function drawScreens(ag) {
       ctx.fillText(`${clock(it.s)} – ${clock(it.e)}`, w / 2, h * 0.82);
     }
   });
-  const sk = SKILLS[ag.day % SKILLS.length];
+  const sk = status.skill_of_day ? [status.skill_of_day, status.skill_of_day_ar || status.skill_of_day] : SKILLS[ag.day % SKILLS.length];
   spots._board.userData.draw((ctx, w, h) => {
     ctx.fillStyle = '#fbfbfa';
     ctx.fillRect(0, 0, w, h);
@@ -387,13 +389,37 @@ function renderAgenda() {
 // ---------------------------------------------------------------- team list and job description panel
 const teamEl = document.getElementById('teamList');
 const detailEl = document.getElementById('detail');
+// the newest real report of an agent, from status.json (work/<agent>/*.md)
+const latest = (id) => (status.agents[id] || [])[0];
+const BADGE = {done: '✅', waiting: '⏳', blocked: '⛔'};
+function realLine(id) {
+  const r = latest(id);
+  if (!r) return `<em class="real none">${t('No report yet')}</em>`;
+  return `<em class="real ${r.status}">${BADGE[r.status] || '•'} ${pick(r, 'title')} · ${r.date.slice(5)}</em>`;
+}
+let openReport = null;
+function reportsHtml(id) {
+  const list = status.agents[id] || [];
+  if (!list.length) return `<p class="hint">${t('No report yet')}</p>`;
+  return list
+    .map((r, k) => {
+      const key = id + k;
+      const open = openReport === key || (openReport === null && k === 0);
+      return `<div class="rep ${r.status}">
+        <button class="rhead" data-rep="${key}"><span>${BADGE[r.status] || '•'}</span><b>${pick(r, 'title')}</b><i dir="ltr">${r.date}</i></button>
+        <p class="rsum">${pick(r, 'summary')}</p>
+        ${open ? `<div class="rbody" dir="ltr">${md(r.body)}</div>` : ''}
+      </div>`;
+    })
+    .join('');
+}
 function renderTeam() {
   teamEl.innerHTML = team.agents
     .map((a) => {
       const st = crowdById[a.id];
       const doing = st.plan ? (getLang() === 'ar' ? st.plan.act_ar || t(st.plan.act) : st.plan.act) : '';
       return `<button class="member ${selected === a.id ? 'sel' : ''}" data-id="${a.id}" style="--dot:${deptOf[a.dept].color}">
-        <span class="dot"></span><b>${nm(a)}</b><small>${pick(a, 'role')}</small><em>${doing}</em></button>`;
+        <span class="dot"></span><b>${nm(a)}</b><small>${pick(a, 'role')}</small>${realLine(a.id)}</button>`;
     })
     .join('');
   for (const b of teamEl.querySelectorAll('.member')) b.onclick = () => select(b.dataset.id);
@@ -419,21 +445,39 @@ function renderDetail() {
     <div class="now"><small>${t('Doing now')}</small><b>${doing}</b></div>
     <div class="drow"><button id="followBtn" class="${follow === a.id ? 'on' : ''}">${t('Follow')}</button></div>
     ${a.assumed ? `<p class="assumed">${t('Starter job description [A]: not yet confirmed.')}</p>` : ''}
+    <h4>${t('Latest work')}</h4>${reportsHtml(a.id)}
     <h4>${t('Job description')}</h4><p>${pick(a, 'summary')}</p>
     <h4>${t('Duties')}</h4><ul>${(ar ? a.duties_ar : a.duties).map((d) => `<li>${d}</li>`).join('')}</ul>
     <h4>${t('Delivers')}</h4><p>${pick(a, 'delivers')}</p>
     <dl><dt>${t('Department')}</dt><dd>${pick(deptOf[a.dept], 'name')}</dd><dt>${t('Reports to')}</dt><dd>${boss}</dd></dl>
     <h4>${t('Meetings today')}</h4><ul>${mine.map((m) => `<li><i>${clock(m.s)}</i> ${ar ? m.name_ar : m.name}</li>`).join('') || '<li>—</li>'}</ul>
-    <h4>${t('Phase 2 tools')}</h4><p class="tools">${a.tools_phase2.map((x) => `<span>${x}</span>`).join('')}</p>`;
+    <h4>${t('Daily routine')}</h4><ol>${(a.routine || []).map((x) => `<li>${x}</li>`).join('')}</ol>
+    <h4>${t('Send me')}</h4><ul>${(a.inputs || []).map((x) => `<li>${x}</li>`).join('')}</ul>
+    <h4>${t('Tools')}</h4><p class="tools">${a.tools_phase2.map((x) => `<span>${x}</span>`).join('')}</p>`;
   detailEl.classList.remove('hidden');
   document.getElementById('team').classList.add('hidden-d');
   document.getElementById('closeD').onclick = () => select(null);
+  for (const b of detailEl.querySelectorAll('[data-rep]'))
+    b.onclick = () => {
+      const k = b.dataset.rep;
+      const first = k.endsWith('0') && openReport === null;
+      openReport = openReport === k || first ? '' : k;
+      renderDetail();
+    };
   document.getElementById('followBtn').onclick = () => {
     follow = follow === a.id ? null : a.id;
     renderDetail();
   };
 }
+// refresh only the "doing now" line, so a report being read does not jump back to the top
+function updateDoing() {
+  const st = crowdById[selected];
+  const el = detailEl.querySelector('.now b');
+  if (!st || !el || !st.plan) return;
+  el.textContent = getLang() === 'ar' ? st.plan.act_ar || t(st.plan.act) : st.plan.act;
+}
 function select(id) {
+  openReport = null;
   selected = id;
   if (!id) follow = null;
   for (const st of crowd) st.p.ring.visible = st.a.id === id;
@@ -608,7 +652,7 @@ function frame(nowMs) {
       lastAgendaMin = m;
       renderAgenda();
       renderTeam();
-      if (selected) renderDetail();
+      if (selected) updateDoing();
     }
   }
   renderer.render(scene, camera);

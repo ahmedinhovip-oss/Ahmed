@@ -1,0 +1,87 @@
+{
+ "agents": {
+  "ali": [
+   {
+    "agent": "ali",
+    "date": "2026-11-22",
+    "title": "Stand-up minutes — first working day",
+    "title_ar": "محضر الاجتماع اليومي — أول يوم عمل",
+    "status": "done",
+    "summary": "2 of 6 agents did real work (Hisham, Ahmed); 3 wait for data. 4 decisions for Ahmed, 6 actions open.",
+    "summary_ar": "وكيلان من 6 أنجزا عملًا حقيقيًا (هشام وأحمد)؛ 3 بانتظار البيانات. 4 قرارات لأحمد و6 إجراءات مفتوحة.",
+    "file": "work/ali/2026-11-22-standup-minutes.md",
+    "body": "# Daily stand-up — Sunday 22 Nov 2026\n\n**Chair:** Ali (CEO) · **Present:** Ram, Ahmed, Saif, Hisham, Aiman\n\n## Round the table\n\n| Who | Done | Status |\n|---|---|---|\n| Hisham | Searched GitHub, read 5 skill libraries, recommends 3 skills (8D Guru, Excel Hygiene, HR Recruiting) | ✅ done |\n| Ahmed | Audited the Equipment Library: 10 machines, all complete; 5 of 7 areas empty | ✅ done |\n| Ram | Routine ready; needs production plan, actual output, downtime log | ⏳ waiting for data |\n| Aiman | Routine ready; needs incident log, open actions, permit register | ⏳ waiting for data |\n| Saif | Routine ready; needs job descriptions, CVs, attendance, visa/contract list | ⏳ waiting for data |\n\n## Decisions for Ahmed (yes / no)\n\n1. **Connect Microsoft 365** (Outlook, OneDrive, SharePoint, Teams: read-only search) so the team reads its own files\n   and mail instead of waiting for uploads?\n2. **Install Hisham's three skills** (8D Guru, Excel Hygiene, HR Recruiting) into the project?\n3. **Run the team automatically** every working day (Sun–Thu, 07:40 Muscat): each agent does its routine, I write these\n   minutes, the office and dashboard are updated?\n4. **Casting next** for the Equipment Library (Ahmed's proposal)?\n\n## Actions\n\n| # | Action | Owner | Due |\n|---|---|---|---|\n| 1 | Send production plan, actual output and downtime log | Ahmed (human) → Ram | 24 Nov |\n| 2 | Send incident / near-miss log and permit register | Ahmed (human) → Aiman | 24 Nov |\n| 3 | Send HR files (JDs, CVs, attendance, expiry list) | Ahmed (human) → Saif | 24 Nov |\n| 4 | Send scrap, downtime and energy data (3 months) | Ahmed (human) → Ahmed | 24 Nov |\n| 5 | Install approved skills; outline a plant-safety skill | Hisham | after decision 2 |\n| 6 | Send the Casting machine manuals | Ahmed (human) | 30 Nov |\n\n**Rule reminded:** nobody sends anything outside the team. Letters, emails and purchase requests are drafts for a human."
+   }
+  ],
+  "ram": [
+   {
+    "agent": "ram",
+    "date": "2026-11-22",
+    "title": "Ready to start, waiting for data",
+    "title_ar": "جاهز للبدء، بانتظار البيانات",
+    "status": "waiting",
+    "summary": "Routine set up. No files in inbox/ram/ yet, so no daily operations report (plan vs actual) today.",
+    "summary_ar": "بانتظار خطة الإنتاج والإنتاج الفعلي وسجل الأعطال.",
+    "file": "work/ram/2026-11-22-operations.md",
+    "body": "# Ram — COO: first run\n\nMy daily routine is ready (daily operations report (plan vs actual)), but `inbox/ram/` is empty, so I have nothing real to report\ntoday. I will not invent numbers.\n\n## What I need (Excel, PDF or Word is fine)\n- Daily production plan per area\n- Daily actual output per area\n- Breakdown / downtime log\n\nSend them to me in the chat or drop them in `AI-Office/inbox/ram/`. Once the Microsoft 365 connector is\nconnected I will read them from OneDrive / SharePoint myself.\n\n## What I will do with them every working day\n1. Read the newest production plan and daily output file in inbox/ram/\n2. Compare plan vs actual per area and list the gaps over 5 %\n3. Name the cause of each gap if the files say it (breakdown, material, die)\n4. Write work/ram/<date>-operations.md\n\n**Done today:** routine set up. **Planned tomorrow:** first real report as soon as data arrives. **Blockers:** no data."
+   }
+  ],
+  "ahmed": [
+   {
+    "agent": "ahmed",
+    "date": "2026-11-22",
+    "title": "Equipment Library status",
+    "title_ar": "حالة مكتبة المعدات",
+    "status": "done",
+    "summary": "10 machines in the library, all complete (simulator, video, poster, manuals). 5 of 7 areas are still empty; KPI data not received yet.",
+    "summary_ar": "10 آلات في المكتبة وكلها مكتملة (محاكي، فيديو، صورة، أدلة). 5 من 7 مناطق ما زالت فارغة؛ لم تصل بيانات المؤشرات بعد.",
+    "file": "work/ahmed/2026-11-22-equipment-library-status.md",
+    "body": "# Equipment Library status — 22 Nov 2026\n\n## Coverage by area (metal-flow order)\n\n| # | Area | Machines | Complete* |\n|---|---|---|---|\n| 1 | Melting | 9 | 9 |\n| 2 | Casting | 0 | – |\n| 3 | Die Maintenance | 0 | – |\n| 4 | Heat Treatment | 0 | – |\n| 5 | CNC | 1 (2 t EOT crane) | 1 |\n| 6 | Paint Line | 0 | – |\n| 7 | Packing | 0 | – |\n| | **Total** | **10** | **10** |\n\n\\*Complete = 3D simulator, 20 s tour video, poster and the source manuals are all in the package (checked file by file).\n\nMelting machines: HA01 furnace, HC01 furnace, degassing machine, dust collector, SWM#1 sidewell melter, vibratory feeder,\nspare-parts catalogue, ingot casting machine, launder transfer pump. All were added 18–19 Nov.\n\n## Findings\n\n1. **The library covers only the start of the metal flow.** Casting is the next area and the one where most scrap is\n   made, so it gives the most training value next.\n2. **The EOT crane sits under CNC.** Confirm that is where it works; if it serves several areas we keep it there and\n   mention the areas on its card.\n3. Each package lists its assumed values ([A]) in its README. Nothing is blocking, but each [A] should be confirmed by\n   the area engineer when the package is used for training.\n\n## Improvement action proposed\n\n**Fill the Casting area next.** Send the manuals for the casting machines (LPDC / die casting cells, cooling, X-ray).\nTarget: Casting complete within two weeks.\n\n## KPI summary\n\nNo KPI data received yet. To start the KPI dashboard I need, in `inbox/ahmed/` (Excel is fine):\nscrap by part and defect, downtime by machine, and energy per kg, for the last 3 months.\n\n**Done today:** library audit. **Planned tomorrow:** start the KPI summary as soon as the files arrive.\n**Blockers:** KPI files; Casting manuals."
+   }
+  ],
+  "saif": [
+   {
+    "agent": "saif",
+    "date": "2026-11-22",
+    "title": "Ready to start, waiting for data",
+    "title_ar": "جاهز للبدء، بانتظار البيانات",
+    "status": "waiting",
+    "summary": "Routine set up. No files in inbox/saif/ yet, so no hr report and draft letters today.",
+    "summary_ar": "بانتظار الأوصاف الوظيفية والسير الذاتية وكشف الحضور وقائمة انتهاء العقود.",
+    "file": "work/saif/2026-11-22-hr.md",
+    "body": "# Saif — HR Manager: first run\n\nMy daily routine is ready (hr report and draft letters), but `inbox/saif/` is empty, so I have nothing real to report\ntoday. I will not invent numbers.\n\n## What I need (Excel, PDF or Word is fine)\n- Open job descriptions\n- CVs received (pdf/docx)\n- Attendance and leave sheet\n- Contract / visa expiry list\n\nSend them to me in the chat or drop them in `AI-Office/inbox/saif/`. Once the Microsoft 365 connector is\nconnected I will read them from OneDrive / SharePoint myself.\n\n## What I will do with them every working day\n1. Read new CVs, attendance and leave files in inbox/saif/\n2. Shortlist CVs against the job description, with reasons\n3. List contracts and visas expiring in the next 30 days\n4. Write work/saif/<date>-hr.md and any draft letters (drafts only)\n\n**Done today:** routine set up. **Planned tomorrow:** first real report as soon as data arrives. **Blockers:** no data."
+   }
+  ],
+  "hisham": [
+   {
+    "agent": "hisham",
+    "date": "2026-11-22",
+    "title": "New skills for the team (week 1)",
+    "title_ar": "مهارات جديدة للفريق (الأسبوع 1)",
+    "status": "done",
+    "summary": "Searched GitHub, read 5 skill libraries; recommend 8D Guru, Excel Hygiene and HR Recruiting. No safety skill worth using yet.",
+    "summary_ar": "بحثت في GitHub وقرأت 5 مكتبات مهارات؛ أوصي بـ 8D Guru و Excel Hygiene و HR Recruiting. لا توجد مهارة سلامة مناسبة بعد.",
+    "skill_of_day": "8D investigations with 8D Guru",
+    "skill_of_day_ar": "تحقيقات 8D باستخدام 8D Guru",
+    "file": "work/hisham/2026-11-22-new-skills.md",
+    "body": "# New skills for the team — week 1\n\n**How I searched:** GitHub repository search (10 queries: manufacturing, lean six sigma, Excel, safety, HR, maintenance,\n8D quality, meeting minutes, KPI dashboards, the official Anthropic library). I downloaded the five most relevant\nlibraries and read each `SKILL.md`, its licence and the files that run code. Nothing was installed.\n\n## Recommended (3)\n\n| Skill | For | Why | Licence | Checked |\n|---|---|---|---|---|\n| **8D Guru** (`jilanfang/8d-guru`) | Ahmed, Ram | Coaches a full 8D investigation (D0–D8) with root-cause challenges and scoring; has an ISO 9001 and an IATF 16949 add-on. Fits customer complaints on castings. | MIT | Pure markdown (244 lines), no scripts run. Safe. |\n| **Excel Hygiene** (`BayramAnnakov/excel-hygiene`) | Ram, Ahmed, Ali | Checks any spreadsheet before it goes out: numbers stored as text, typed-over formulas, `#REF!` errors, cut-short SUM ranges. Useful for the production plan and the KPI sheets. | Apache-2.0 | One Python script (openpyxl) that only reads the file. Safe. |\n| **HR Recruiting** (`tuanductran/hr-skills`, `hr-recruiting`) | Saif | Job descriptions, interview questions, CV screening, offer and rejection letters. The same library has onboarding and job-analysis skills. | MIT | Markdown only for the skill itself. Safe. |\n\n## Already available to us (no install needed)\n\nThe official Anthropic skills for **Excel (xlsx), Word (docx), PDF and PowerPoint** are already enabled on our account.\nEveryone can use them today: Ram for plan vs actual sheets, Saif for letters, Aiman for permit forms (PDF).\n\n## Looked at, not recommended\n\n- **Quality engineering skills** (`Siddardth7/quality-engineering-skills`: FMEA, SPC, MSA, 5-Why, fishbone, PPAP): good\n  content, but every skill needs a separate \"quality-mcp\" server to do its calculations, and the repository has no\n  licence. Use as reading material only.\n- **Safety:** every \"safety incident\" skill found is about software incidents, not plant safety. **Gap:** I propose\n  to write our own plant-safety skill for Aiman (incident log → 5-Why → corrective action → overdue list) once Aiman's\n  first incident log arrives.\n- **Meeting minutes:** the ones found transcribe Chinese audio; we do not need them, Ali writes minutes from our reports.\n\n## Decision needed (Ahmed)\n\nInstall the three recommended skills into this project? **Yes / No.** Installing means copying their folders into\n`.claude/skills/`; nothing runs until someone uses them.\n\n## Skill of the day (11:00)\n\n**8D investigations with 8D Guru**: walk through one real casting complaint from D0 to D8.\n\n## IT status\n\nNo IT data received yet. Send the asset list (PCs, licences) and any open IT issues to `inbox/hisham/`.\n\n**Done today:** skill search and review. **Planned tomorrow:** install approved skills; draft the plant-safety skill outline.\n**Blockers:** approval to install; no IT data yet."
+   }
+  ],
+  "aiman": [
+   {
+    "agent": "aiman",
+    "date": "2026-11-22",
+    "title": "Ready to start, waiting for data",
+    "title_ar": "جاهز للبدء، بانتظار البيانات",
+    "status": "waiting",
+    "summary": "Routine set up. No files in inbox/aiman/ yet, so no safety report today.",
+    "summary_ar": "بانتظار سجل الحوادث والإجراءات التصحيحية وسجل التصاريح.",
+    "file": "work/aiman/2026-11-22-safety.md",
+    "body": "# Aiman — Safety Manager: first run\n\nMy daily routine is ready (safety report), but `inbox/aiman/` is empty, so I have nothing real to report\ntoday. I will not invent numbers.\n\n## What I need (Excel, PDF or Word is fine)\n- Incident and near-miss log\n- Open corrective actions\n- Permit-to-work register\n- Safety walk findings\n\nSend them to me in the chat or drop them in `AI-Office/inbox/aiman/`. Once the Microsoft 365 connector is\nconnected I will read them from OneDrive / SharePoint myself.\n\n## What I will do with them every working day\n1. Read new incident, near-miss and permit records in inbox/aiman/\n2. Check every open corrective action and flag the overdue ones\n3. Count incidents and near misses this month vs last month\n4. Write work/aiman/<date>-safety.md\n\n**Done today:** routine set up. **Planned tomorrow:** first real report as soon as data arrives. **Blockers:** no data."
+   }
+  ]
+ },
+ "updated": "2026-11-22",
+ "skill_of_day": "8D investigations with 8D Guru",
+ "skill_of_day_ar": "تحقيقات 8D باستخدام 8D Guru"
+}

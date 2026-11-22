@@ -79,10 +79,17 @@ def main():
     odir = os.path.join(ROOT, "AI-Office")
     if os.path.exists(os.path.join(odir, "team.json")) and os.path.exists(os.path.join(odir, "AI-Office.html")):
         team = json.load(open(os.path.join(odir, "team.json"), encoding="utf-8"))
+        sp = os.path.join(odir, "status.json")
+        st = json.load(open(sp, encoding="utf-8")) if os.path.exists(sp) else {"agents": {}}
+        last = lambda aid: (st["agents"].get(aid) or [{}])[0]
+        chair = next((a["id"] for a in team["agents"] if a.get("chair")), None)
         office = {
             "href": ref(odir, "AI-Office", "AI-Office.html"),
             "size": os.path.getsize(os.path.join(odir, "AI-Office.html")),
-            "people": [{"name": a["name"], "role": a["role"], "dept": a["dept"]} for a in team["agents"]],
+            "people": [{"name": a["name"], "role": a["role"], "dept": a["dept"], "status": last(a["id"]).get("status"),
+                        "report": last(a["id"]).get("title")} for a in team["agents"]],
+            "updated": st.get("updated"),
+            "minutes": last(chair).get("summary") if chair else None,
             "colors": {d["id"]: d["color"] for d in team["departments"]},
             "meetings": [{"name": m["name"], "start": m["start"]} for m in team["meetings"]],
         }

@@ -71,4 +71,10 @@ export const AR = {
   Chair: 'يرأسه',
   'The Board': 'مجلس الإدارة',
   'Team meeting': 'اجتماع الفريق',
+  'Latest work': 'آخر الأعمال',
+  'No report yet': 'لا يوجد تقرير بعد',
+  'Daily routine': 'الروتين اليومي',
+  'Send me': 'أرسل لي',
+  Tools: 'الأدوات',
+  "Reports are the agents' real work. Walking and the clock are a simulation.": 'التقارير عمل حقيقي للوكلاء. الحركة والساعة محاكاة.',
 };

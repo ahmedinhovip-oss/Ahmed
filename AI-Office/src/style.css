@@ -155,3 +155,26 @@ button { font: inherit; cursor: pointer; }
   .note { display: none; }
   .tag .role { display: none; }
 }
+
+/* real reports */
+.member em.real { color: var(--dim); }
+.member em.real.done { color: #2f7d4a; }
+.member em.real.waiting { color: #9a5b12; }
+.rep { border: 1px solid var(--line); border-radius: 8px; margin: 6px 0; padding: 6px 8px; }
+.rep.done { border-inline-start: 3px solid #2f7d4a; }
+.rep.waiting { border-inline-start: 3px solid #e0861f; }
+.rhead { display: flex; gap: 6px; align-items: baseline; width: 100%; border: 0; background: none; color: var(--ink); padding: 0; text-align: start; }
+.rhead b { flex: 1; font-size: 13px; }
+.rhead i { font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); }
+.rsum { margin: 4px 0 0; color: var(--dim); font-size: 12px; }
+.rbody { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 6px; font-size: 12px; text-align: left; }
+.rbody h3, .rbody h4, .rbody h5 { font-size: 12.5px; margin: 10px 0 4px; text-transform: none; letter-spacing: 0; color: var(--ink); }
+.rbody p, .rbody li { line-height: 1.45; }
+.rbody ul, .rbody ol { padding-left: 18px; margin: 4px 0; }
+.rbody code { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(127,127,127,.12); border-radius: 3px; padding: 0 3px; }
+.rbody .tbl { overflow-x: auto; }
+.rbody table { border-collapse: collapse; font-size: 11px; margin: 4px 0; }
+.rbody th, .rbody td { border: 1px solid var(--line); padding: 3px 5px; vertical-align: top; text-align: left; }
+.rbody th { background: rgba(127,127,127,.08); }
+#detail.panel { width: 360px; }
+@media (max-width: 760px) { #detail.panel { width: auto; } }

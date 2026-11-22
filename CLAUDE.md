@@ -24,3 +24,5 @@ The user keeps a copy at `C:\Users\SCO100317\OneDrive - Synergies Castings LLC\D
 `AI-Office/` is the user's AI team in a 3D office (see `AI-Office/README.md`). `AI-Office/team.json` is the one source
 for people, job descriptions (EN + AR), meetings and breaks; `AI-Office/build.sh` rebuilds `AI-Office.html` and the
 agent files in `AI-Office/.claude/agents/`. The dashboard shows it as a banner, so rebuild the dashboard after changing it.
+Phase 2: agents' real reports live in `AI-Office/work/<agent>/`, inputs in `AI-Office/inbox/<agent>/`; the daily run is
+described in `AI-Office/RUN.md`. Never invent numbers in a report; anything leaving the team is a draft.

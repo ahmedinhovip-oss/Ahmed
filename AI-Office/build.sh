@@ -6,6 +6,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 python3 make_agents.py
+python3 make_status.py
 SKILL=../.claude/skills/teardown
 TEARDOWN_OUT=out node "$SKILL/sims/build.mjs" ./src
 sed 's|<title>src</title>|<title>AI Office</title>|' out/dist/src.html > AI-Office.html

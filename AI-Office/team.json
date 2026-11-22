@@ -4,21 +4,53 @@
   "company_ar": "سينرجيز للسباكة",
   "owner": "ahmed",
   "workweek": "Sun-Thu",
-  "hours": { "start": "07:30", "end": "16:30" },
-
+  "hours": {
+    "start": "07:30",
+    "end": "16:30"
+  },
   "departments": [
-    { "id": "executive", "name": "Executive", "name_ar": "الإدارة التنفيذية", "color": "#c9b48a" },
-    { "id": "improvement", "name": "Business Improvement", "name_ar": "تطوير الأعمال", "color": "#86a8d6" },
-    { "id": "people-it", "name": "People & IT", "name_ar": "الموارد البشرية وتقنية المعلومات", "color": "#8fc1a9" },
-    { "id": "safety", "name": "Health & Safety", "name_ar": "الصحة والسلامة", "color": "#d99a86" }
+    {
+      "id": "executive",
+      "name": "Executive",
+      "name_ar": "الإدارة التنفيذية",
+      "color": "#c9b48a"
+    },
+    {
+      "id": "improvement",
+      "name": "Business Improvement",
+      "name_ar": "تطوير الأعمال",
+      "color": "#86a8d6"
+    },
+    {
+      "id": "people-it",
+      "name": "People & IT",
+      "name_ar": "الموارد البشرية وتقنية المعلومات",
+      "color": "#8fc1a9"
+    },
+    {
+      "id": "safety",
+      "name": "Health & Safety",
+      "name_ar": "الصحة والسلامة",
+      "color": "#d99a86"
+    }
   ],
-
   "agents": [
     {
-      "id": "ali", "name": "Ali", "name_ar": "علي",
-      "role": "CEO", "role_ar": "الرئيس التنفيذي",
-      "dept": "executive", "reports_to": null, "chair": true, "assumed": true,
-      "look": { "outfit": "dishdasha", "skin": "#a9774f", "color": "#fbfaf6", "cap": "#1f4e79" },
+      "id": "ali",
+      "name": "Ali",
+      "name_ar": "علي",
+      "role": "CEO",
+      "role_ar": "الرئيس التنفيذي",
+      "dept": "executive",
+      "reports_to": null,
+      "chair": true,
+      "assumed": true,
+      "look": {
+        "outfit": "dishdasha",
+        "skin": "#a9774f",
+        "color": "#fbfaf6",
+        "cap": "#1f4e79"
+      },
       "summary": "Leads the company: sets direction and targets, chairs the daily stand-up and approves the plans the team brings.",
       "summary_ar": "يقود الشركة: يحدد التوجه والأهداف، ويرأس الاجتماع اليومي، ويعتمد الخطط التي يقدمها الفريق.",
       "duties": [
@@ -35,15 +67,48 @@
       ],
       "delivers": "Monthly targets and the decisions list",
       "delivers_ar": "الأهداف الشهرية وقائمة القرارات",
-      "tasks": ["Reviewing the weekly KPIs", "Reading the COO report", "Deciding on a project proposal", "Setting next month's targets"],
-      "tasks_ar": ["مراجعة المؤشرات الأسبوعية", "قراءة تقرير مدير العمليات", "البت في مقترح مشروع", "تحديد أهداف الشهر القادم"],
-      "tools_phase2": ["Team reports folder", "KPI dashboard"]
+      "tasks": [
+        "Reviewing the weekly KPIs",
+        "Reading the COO report",
+        "Deciding on a project proposal",
+        "Setting next month's targets"
+      ],
+      "tasks_ar": [
+        "مراجعة المؤشرات الأسبوعية",
+        "قراءة تقرير مدير العمليات",
+        "البت في مقترح مشروع",
+        "تحديد أهداف الشهر القادم"
+      ],
+      "tools_phase2": [
+        "Team reports folder",
+        "KPI dashboard"
+      ],
+      "routine": [
+        "Read every report the team wrote today in AI-Office/work/",
+        "Chair the stand-up: write the minutes to work/ali/<date>-standup-minutes.md",
+        "List the decisions only a human can take, each with a clear yes/no question for Ahmed",
+        "Carry open actions forward from the last minutes until they are closed"
+      ],
+      "inputs": [
+        "Monthly targets, if any (xlsx or pdf)"
+      ],
+      "output": "Stand-up minutes with decisions and actions"
     },
     {
-      "id": "ram", "name": "Ram", "name_ar": "رام",
-      "role": "COO", "role_ar": "مدير العمليات",
-      "dept": "executive", "reports_to": "ali", "assumed": true,
-      "look": { "outfit": "suit", "skin": "#8f5f3e", "color": "#3a3f47", "shirt": "#dfe8f1" },
+      "id": "ram",
+      "name": "Ram",
+      "name_ar": "رام",
+      "role": "COO",
+      "role_ar": "مدير العمليات",
+      "dept": "executive",
+      "reports_to": "ali",
+      "assumed": true,
+      "look": {
+        "outfit": "suit",
+        "skin": "#8f5f3e",
+        "color": "#3a3f47",
+        "shirt": "#dfe8f1"
+      },
       "summary": "Runs daily operations from Melting to Packing so that production, maintenance and quality stay on plan.",
       "summary_ar": "يدير العمليات اليومية من الصهر إلى التغليف ليبقى الإنتاج والصيانة والجودة على الخطة.",
       "duties": [
@@ -60,15 +125,50 @@
       ],
       "delivers": "Daily operations report (plan vs actual)",
       "delivers_ar": "تقرير العمليات اليومي (المخطط مقابل الفعلي)",
-      "tasks": ["Checking plan vs actual", "Following a furnace breakdown", "Reviewing the die change plan", "Writing the operations report"],
-      "tasks_ar": ["مقارنة المخطط بالفعلي", "متابعة عطل فرن", "مراجعة خطة تغيير القوالب", "كتابة تقرير العمليات"],
-      "tools_phase2": ["Production log on OneDrive", "Equipment Library"]
+      "tasks": [
+        "Checking plan vs actual",
+        "Following a furnace breakdown",
+        "Reviewing the die change plan",
+        "Writing the operations report"
+      ],
+      "tasks_ar": [
+        "مقارنة المخطط بالفعلي",
+        "متابعة عطل فرن",
+        "مراجعة خطة تغيير القوالب",
+        "كتابة تقرير العمليات"
+      ],
+      "tools_phase2": [
+        "Production log on OneDrive",
+        "Equipment Library"
+      ],
+      "routine": [
+        "Read the newest production plan and daily output file in inbox/ram/",
+        "Compare plan vs actual per area and list the gaps over 5 %",
+        "Name the cause of each gap if the files say it (breakdown, material, die)",
+        "Write work/ram/<date>-operations.md"
+      ],
+      "inputs": [
+        "Daily production plan per area",
+        "Daily actual output per area",
+        "Breakdown / downtime log"
+      ],
+      "output": "Daily operations report (plan vs actual)"
     },
     {
-      "id": "ahmed", "name": "Ahmed", "name_ar": "أحمد",
-      "role": "Business Improvement Manager", "role_ar": "مدير تطوير الأعمال",
-      "dept": "improvement", "reports_to": "ali", "assumed": true,
-      "look": { "outfit": "dishdasha", "skin": "#b07c55", "color": "#f2efe6", "cap": "#7a2f3a" },
+      "id": "ahmed",
+      "name": "Ahmed",
+      "name_ar": "أحمد",
+      "role": "Business Improvement Manager",
+      "role_ar": "مدير تطوير الأعمال",
+      "dept": "improvement",
+      "reports_to": "ali",
+      "assumed": true,
+      "look": {
+        "outfit": "dishdasha",
+        "skin": "#b07c55",
+        "color": "#f2efe6",
+        "cap": "#7a2f3a"
+      },
       "summary": "Finds where the plant loses time, metal and money and runs the projects that fix it.",
       "summary_ar": "يحدد أين يخسر المصنع الوقت والمعدن والمال، ويدير المشاريع التي تعالج ذلك.",
       "duties": [
@@ -85,15 +185,52 @@
       ],
       "delivers": "Weekly improvement report and the KPI dashboard",
       "delivers_ar": "تقرير التحسين الأسبوعي ولوحة المؤشرات",
-      "tasks": ["Updating the KPI dashboard", "Analysing scrap by part", "Planning a Kaizen event", "Adding a machine to the Equipment Library"],
-      "tasks_ar": ["تحديث لوحة المؤشرات", "تحليل الهالك حسب القطعة", "تخطيط فعالية Kaizen", "إضافة آلة إلى مكتبة المعدات"],
-      "tools_phase2": ["Casting-defects skill", "Equipment Library", "KPI files on OneDrive"]
+      "tasks": [
+        "Updating the KPI dashboard",
+        "Analysing scrap by part",
+        "Planning a Kaizen event",
+        "Adding a machine to the Equipment Library"
+      ],
+      "tasks_ar": [
+        "تحديث لوحة المؤشرات",
+        "تحليل الهالك حسب القطعة",
+        "تخطيط فعالية Kaizen",
+        "إضافة آلة إلى مكتبة المعدات"
+      ],
+      "tools_phase2": [
+        "Casting-defects skill",
+        "Equipment Library",
+        "KPI files on OneDrive"
+      ],
+      "routine": [
+        "Check the Equipment Library: packages per area, missing simulators, videos or manuals",
+        "Read any KPI or scrap files in inbox/ahmed/ and update the KPI summary",
+        "Pick the biggest loss of the week and propose one improvement action with numbers",
+        "Write work/ahmed/<date>-<topic>.md"
+      ],
+      "inputs": [
+        "Scrap by part / defect (xlsx)",
+        "Downtime by machine",
+        "Energy per kg",
+        "Machine manuals for areas still empty"
+      ],
+      "output": "Improvement report and KPI summary"
     },
     {
-      "id": "saif", "name": "Saif", "name_ar": "سيف",
-      "role": "HR Manager", "role_ar": "مدير الموارد البشرية",
-      "dept": "people-it", "reports_to": "ali", "assumed": false,
-      "look": { "outfit": "dishdasha", "skin": "#9c6b47", "color": "#e8e2d4", "cap": "#24425e" },
+      "id": "saif",
+      "name": "Saif",
+      "name_ar": "سيف",
+      "role": "HR Manager",
+      "role_ar": "مدير الموارد البشرية",
+      "dept": "people-it",
+      "reports_to": "ali",
+      "assumed": false,
+      "look": {
+        "outfit": "dishdasha",
+        "skin": "#9c6b47",
+        "color": "#e8e2d4",
+        "cap": "#24425e"
+      },
       "summary": "Looks after people: hiring, attendance, training records and HR letters.",
       "summary_ar": "يهتم بشؤون الموظفين: التوظيف والحضور وسجلات التدريب والخطابات.",
       "duties": [
@@ -110,15 +247,51 @@
       ],
       "delivers": "Weekly HR report and draft letters",
       "delivers_ar": "تقرير أسبوعي للموارد البشرية ومسودات الخطابات",
-      "tasks": ["Screening CVs", "Drafting an offer letter", "Checking leave balances", "Listing visa renewals"],
-      "tasks_ar": ["فرز السير الذاتية", "صياغة خطاب عرض", "مراجعة أرصدة الإجازات", "حصر تجديدات التأشيرات"],
-      "tools_phase2": ["Outlook (HR inbox)", "HR files on OneDrive"]
+      "tasks": [
+        "Screening CVs",
+        "Drafting an offer letter",
+        "Checking leave balances",
+        "Listing visa renewals"
+      ],
+      "tasks_ar": [
+        "فرز السير الذاتية",
+        "صياغة خطاب عرض",
+        "مراجعة أرصدة الإجازات",
+        "حصر تجديدات التأشيرات"
+      ],
+      "tools_phase2": [
+        "Outlook (HR inbox)",
+        "HR files on OneDrive"
+      ],
+      "routine": [
+        "Read new CVs, attendance and leave files in inbox/saif/",
+        "Shortlist CVs against the job description, with reasons",
+        "List contracts and visas expiring in the next 30 days",
+        "Write work/saif/<date>-hr.md and any draft letters (drafts only)"
+      ],
+      "inputs": [
+        "Open job descriptions",
+        "CVs received (pdf/docx)",
+        "Attendance and leave sheet",
+        "Contract / visa expiry list"
+      ],
+      "output": "HR report and draft letters"
     },
     {
-      "id": "hisham", "name": "Hisham", "name_ar": "هشام",
-      "role": "IT Manager & Skills Trainer", "role_ar": "مدير تقنية المعلومات ومدرب المهارات",
-      "dept": "people-it", "reports_to": "ali", "assumed": false,
-      "look": { "outfit": "suit", "skin": "#a8754f", "color": "#2f3a4a", "shirt": "#e9eef3" },
+      "id": "hisham",
+      "name": "Hisham",
+      "name_ar": "هشام",
+      "role": "IT Manager & Skills Trainer",
+      "role_ar": "مدير تقنية المعلومات ومدرب المهارات",
+      "dept": "people-it",
+      "reports_to": "ali",
+      "assumed": false,
+      "look": {
+        "outfit": "suit",
+        "skin": "#a8754f",
+        "color": "#2f3a4a",
+        "shirt": "#e9eef3"
+      },
       "summary": "Keeps the company's systems running and safe, and gives people new skills: he finds the best Claude skills on GitHub and teaches them to the team.",
       "summary_ar": "يحافظ على عمل أنظمة الشركة وأمانها، ويمنح الفريق مهارات جديدة: يبحث عن أفضل مهارات Claude في GitHub ويعلّمها للفريق.",
       "duties": [
@@ -135,15 +308,51 @@
       ],
       "delivers": "Weekly IT status and 'new skills' report (Thursday)",
       "delivers_ar": "تقرير أسبوعي لحالة تقنية المعلومات والمهارات الجديدة (الخميس)",
-      "tasks": ["Searching GitHub for skills", "Checking last night's backup", "Resetting a user account", "Preparing the 11:00 session"],
-      "tasks_ar": ["البحث في GitHub عن مهارات", "فحص النسخ الاحتياطي لليلة الماضية", "إعادة ضبط حساب مستخدم", "تحضير جلسة الساعة 11:00"],
-      "tools_phase2": ["GitHub search", "Web search", "IT asset list", "Skills folder"]
+      "tasks": [
+        "Searching GitHub for skills",
+        "Checking last night's backup",
+        "Resetting a user account",
+        "Preparing the 11:00 session"
+      ],
+      "tasks_ar": [
+        "البحث في GitHub عن مهارات",
+        "فحص النسخ الاحتياطي لليلة الماضية",
+        "إعادة ضبط حساب مستخدم",
+        "تحضير جلسة الساعة 11:00"
+      ],
+      "tools_phase2": [
+        "GitHub search",
+        "Web search",
+        "IT asset list",
+        "Skills folder"
+      ],
+      "routine": [
+        "Search GitHub for new Claude skills useful to each team member",
+        "Read each candidate SKILL.md, its licence and any scripts before recommending it",
+        "Recommend at most three per week, saying who should use each and why",
+        "Write work/hisham/<date>-new-skills.md and pick the skill of the day for the 11:00 session"
+      ],
+      "inputs": [
+        "IT issues list or helpdesk tickets",
+        "Asset list (PCs, licences)"
+      ],
+      "output": "New skills report and IT status"
     },
     {
-      "id": "aiman", "name": "Aiman", "name_ar": "أيمن",
-      "role": "Safety Manager", "role_ar": "مدير السلامة",
-      "dept": "safety", "reports_to": "ram", "assumed": true,
-      "look": { "outfit": "coverall", "skin": "#946545", "color": "#e98a2b", "hardhat": "#f2c230" },
+      "id": "aiman",
+      "name": "Aiman",
+      "name_ar": "أيمن",
+      "role": "Safety Manager",
+      "role_ar": "مدير السلامة",
+      "dept": "safety",
+      "reports_to": "ram",
+      "assumed": true,
+      "look": {
+        "outfit": "coverall",
+        "skin": "#946545",
+        "color": "#e98a2b",
+        "hardhat": "#f2c230"
+      },
       "summary": "Keeps everyone in the plant safe: incidents, permits, PPE, audits and safety training.",
       "summary_ar": "يحافظ على سلامة الجميع في المصنع: الحوادث والتصاريح ومعدات الوقاية والتدقيق والتدريب على السلامة.",
       "duties": [
@@ -160,29 +369,131 @@
       ],
       "delivers": "Weekly safety report and incident log",
       "delivers_ar": "تقرير السلامة الأسبوعي وسجل الحوادث",
-      "tasks": ["Logging a near miss", "Reviewing a hot-work permit", "Writing a toolbox talk", "Checking PPE stock"],
-      "tasks_ar": ["تسجيل حادث وشيك", "مراجعة تصريح عمل ساخن", "كتابة محاضرة سلامة", "مراجعة مخزون معدات الوقاية"],
-      "tools_phase2": ["Safety log on OneDrive"]
+      "tasks": [
+        "Logging a near miss",
+        "Reviewing a hot-work permit",
+        "Writing a toolbox talk",
+        "Checking PPE stock"
+      ],
+      "tasks_ar": [
+        "تسجيل حادث وشيك",
+        "مراجعة تصريح عمل ساخن",
+        "كتابة محاضرة سلامة",
+        "مراجعة مخزون معدات الوقاية"
+      ],
+      "tools_phase2": [
+        "Safety log on OneDrive"
+      ],
+      "routine": [
+        "Read new incident, near-miss and permit records in inbox/aiman/",
+        "Check every open corrective action and flag the overdue ones",
+        "Count incidents and near misses this month vs last month",
+        "Write work/aiman/<date>-safety.md"
+      ],
+      "inputs": [
+        "Incident and near-miss log",
+        "Open corrective actions",
+        "Permit-to-work register",
+        "Safety walk findings"
+      ],
+      "output": "Safety report"
     }
   ],
-
   "meetings": [
-    { "id": "standup", "name": "Daily stand-up", "name_ar": "الاجتماع اليومي",
-      "start": "08:00", "end": "08:20", "days": "Sun-Thu", "place": "meeting", "chair": "ali", "attendees": "all",
-      "agenda": "Yesterday, today, blockers", "agenda_ar": "الأمس، اليوم، العوائق", "assumed": true },
-    { "id": "skills", "name": "Skill session (Hisham)", "name_ar": "جلسة المهارات (هشام)",
-      "start": "11:00", "end": "11:30", "days": "Sun-Thu", "place": "training", "chair": "hisham", "attendees": ["hisham", "*rotate3"],
-      "agenda": "One new skill, shown live", "agenda_ar": "مهارة جديدة واحدة بعرض مباشر", "assumed": true },
-    { "id": "ops", "name": "Operations & safety review", "name_ar": "مراجعة العمليات والسلامة",
-      "start": "13:45", "end": "14:15", "days": "Sun-Thu", "place": "meeting", "chair": "ram", "attendees": ["ram", "aiman", "ahmed", "hisham"],
-      "agenda": "Plan vs actual, breakdowns, incidents, improvement actions", "agenda_ar": "المخطط مقابل الفعلي، الأعطال، الحوادث، إجراءات التحسين", "assumed": true },
-    { "id": "ceo-report", "name": "End-of-day report to the CEO", "name_ar": "تقرير نهاية اليوم للرئيس التنفيذي",
-      "start": "15:30", "end": "15:45", "days": "Sun-Thu", "place": "meeting", "chair": "ali", "attendees": ["ali", "ram", "ahmed"],
-      "agenda": "Today's results and tomorrow's priorities", "agenda_ar": "نتائج اليوم وأولويات الغد", "assumed": true }
+    {
+      "id": "standup",
+      "name": "Daily stand-up",
+      "name_ar": "الاجتماع اليومي",
+      "start": "08:00",
+      "end": "08:20",
+      "days": "Sun-Thu",
+      "place": "meeting",
+      "chair": "ali",
+      "attendees": "all",
+      "agenda": "Yesterday, today, blockers",
+      "agenda_ar": "الأمس، اليوم، العوائق",
+      "assumed": true
+    },
+    {
+      "id": "skills",
+      "name": "Skill session (Hisham)",
+      "name_ar": "جلسة المهارات (هشام)",
+      "start": "11:00",
+      "end": "11:30",
+      "days": "Sun-Thu",
+      "place": "training",
+      "chair": "hisham",
+      "attendees": [
+        "hisham",
+        "*rotate3"
+      ],
+      "agenda": "One new skill, shown live",
+      "agenda_ar": "مهارة جديدة واحدة بعرض مباشر",
+      "assumed": true
+    },
+    {
+      "id": "ops",
+      "name": "Operations & safety review",
+      "name_ar": "مراجعة العمليات والسلامة",
+      "start": "13:45",
+      "end": "14:15",
+      "days": "Sun-Thu",
+      "place": "meeting",
+      "chair": "ram",
+      "attendees": [
+        "ram",
+        "aiman",
+        "ahmed",
+        "hisham"
+      ],
+      "agenda": "Plan vs actual, breakdowns, incidents, improvement actions",
+      "agenda_ar": "المخطط مقابل الفعلي، الأعطال، الحوادث، إجراءات التحسين",
+      "assumed": true
+    },
+    {
+      "id": "ceo-report",
+      "name": "End-of-day report to the CEO",
+      "name_ar": "تقرير نهاية اليوم للرئيس التنفيذي",
+      "start": "15:30",
+      "end": "15:45",
+      "days": "Sun-Thu",
+      "place": "meeting",
+      "chair": "ali",
+      "attendees": [
+        "ali",
+        "ram",
+        "ahmed"
+      ],
+      "agenda": "Today's results and tomorrow's priorities",
+      "agenda_ar": "نتائج اليوم وأولويات الغد",
+      "assumed": true
+    }
   ],
-
   "breaks": [
-    { "name": "Coffee break", "name_ar": "استراحة القهوة", "start": "10:00", "end": "10:20", "place": "cafe" },
-    { "name": "Lunch", "name_ar": "الغداء", "start": "12:15", "end": "13:00", "place": "cafe" }
-  ]
+    {
+      "name": "Coffee break",
+      "name_ar": "استراحة القهوة",
+      "start": "10:00",
+      "end": "10:20",
+      "place": "cafe"
+    },
+    {
+      "name": "Lunch",
+      "name_ar": "الغداء",
+      "start": "12:15",
+      "end": "13:00",
+      "place": "cafe"
+    }
+  ],
+  "run": {
+    "when": "Sun-Thu 07:40 (Muscat)",
+    "order": [
+      "hisham",
+      "ahmed",
+      "ram",
+      "aiman",
+      "saif",
+      "ali"
+    ]
+  }
 }
