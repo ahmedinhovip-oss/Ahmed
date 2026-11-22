@@ -47,7 +47,8 @@ export function makePlanner(team) {
       if (id === list[0]) return 'train:lead';
       return 'train:' + Math.min(5, list.indexOf(id) - 1);
     }
-    const k = list.indexOf(id);
+    if (m.chair === id) return 'meet:head';
+    const k = list.filter((x) => x !== m.chair).indexOf(id);
     return k < 9 ? 'meet:' + k : 'meetstand:' + (k - 9);
   }
 
@@ -82,8 +83,8 @@ export function makePlanner(team) {
 
     if (override && t >= override.from && t < override.to) {
       if (override.kind === 'meeting') {
-        const k = i;
-        return {spot: k < 9 ? 'meet:' + k : 'meetstand:' + (k - 9), act: 'Meeting with Ahmed', pose: 'meet', meeting: 'now'};
+        const spot = meetSpot({place: 'meeting', chair: team.owner}, ids, id);
+        return {spot, act: 'Team meeting', pose: 'meet', meeting: 'now'};
       }
       if (override.kind === 'break') return {spot: 'cafe:' + i, act: 'Coffee break', pose: 'coffee'};
     }
@@ -103,7 +104,7 @@ export function makePlanner(team) {
     const r = rnd(id, day, block);
     const inBlock = (tm - START) % 25;
     if (r < 0.16 && inBlock >= 6 && inBlock < 14) {
-      const pool = team.agents.filter((x) => x.id !== id && (x.dept === a.dept || x.id === 'khalid' || a.id === 'khalid'));
+      const pool = team.agents.filter((x) => x.id !== id && (x.dept === a.dept || x.id === a.reports_to || x.reports_to === a.id));
       const other = (pool.length ? pool : team.agents.filter((x) => x.id !== id))[Math.floor(rnd(id, block, 'w') * (pool.length || ids.length - 1))];
       if (other && !activeEvent(other.id, day, tm)) return {spot: 'visit:' + other.id, act: 'Discussing with ' + other.name, act_ar: 'نقاش مع ' + other.name_ar, pose: 'discuss', with: other.id};
     }
@@ -112,29 +113,17 @@ export function makePlanner(team) {
     return {spot: 'desk:' + id, act: a.tasks[k], act_ar: a.tasks_ar[k], pose: 'type'};
   }
 
-  // Ahmed comes in for meetings he is part of
-  function planCeo(t) {
-    const day = Math.floor(t / 1440) % 7;
-    const tm = t - Math.floor(t / 1440) * 1440;
-    if (override && override.kind === 'meeting' && t >= override.from && t < override.to)
-      return {spot: 'meet:ceo', act: 'Meeting with the team', pose: 'meet'};
-    if (workday(day))
-      for (const m of meetings)
-        if (m.with_ceo && tm >= m.s - LEAD - 1 && tm < m.e) return {spot: 'meet:ceo', act: m.name, act_ar: m.name_ar, pose: 'meet', meeting: m.id};
-    return {spot: 'outside', act: 'Off the floor', pose: 'stand', away: true};
-  }
-
   // what's on now and next, for the agenda panel and the meeting-room screen
   function agenda(t) {
     const day = Math.floor(t / 1440) % 7;
     const tm = t - Math.floor(t / 1440) * 1440;
     const items = [
-      ...meetings.map((m) => ({kind: 'meeting', id: m.id, name: m.name, name_ar: m.name_ar, s: m.s, e: m.e, place: m.place, with_ceo: m.with_ceo, list: attendees(m, day), agenda: m.agenda, agenda_ar: m.agenda_ar})),
+      ...meetings.map((m) => ({kind: 'meeting', id: m.id, name: m.name, name_ar: m.name_ar, s: m.s, e: m.e, place: m.place, chair: m.chair, list: attendees(m, day), agenda: m.agenda, agenda_ar: m.agenda_ar})),
       ...breaks.map((b) => ({kind: 'break', name: b.name, name_ar: b.name_ar, s: b.s, e: b.e, place: b.place})),
     ].sort((x, y) => x.s - y.s);
     for (const it of items) it.state = !workday(day) ? 'off' : tm >= it.e ? 'done' : tm >= it.s ? 'now' : 'next';
     return {day, tm, items, workday: workday(day)};
   }
 
-  return {plan, planCeo, agenda, setOverride, getOverride, START, END, workday};
+  return {plan, agenda, setOverride, getOverride, START, END, workday};
 }

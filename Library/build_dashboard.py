@@ -74,7 +74,19 @@ def main():
                 "folder": url(base),
             })
         areas.append({"id": a["id"], "name": a["name"], "folder": a["folder"], "packages": pkgs})
-    data = json.dumps({"title": index["title"], "single": single, "areas": areas}, ensure_ascii=False).replace("</", "<\\/")
+    # the AI Office (../AI-Office) shows as a banner above the plant areas
+    office = None
+    odir = os.path.join(ROOT, "AI-Office")
+    if os.path.exists(os.path.join(odir, "team.json")) and os.path.exists(os.path.join(odir, "AI-Office.html")):
+        team = json.load(open(os.path.join(odir, "team.json"), encoding="utf-8"))
+        office = {
+            "href": ref(odir, "AI-Office", "AI-Office.html"),
+            "size": os.path.getsize(os.path.join(odir, "AI-Office.html")),
+            "people": [{"name": a["name"], "role": a["role"], "dept": a["dept"]} for a in team["agents"]],
+            "colors": {d["id"]: d["color"] for d in team["departments"]},
+            "meetings": [{"name": m["name"], "start": m["start"]} for m in team["meetings"]],
+        }
+    data = json.dumps({"title": index["title"], "single": single, "areas": areas, "office": office}, ensure_ascii=False).replace("</", "<\\/")
     tpl = open(os.path.join(HERE, "dashboard.template.html"), encoding="utf-8").read()
     blobs = "".join(f'<script type="application/octet-stream" id="{a}" data-mime="{m}">{b}</script>\n' for a, m, b in assets)
     html = tpl.replace("/*__DATA__*/null", data).replace("<!--__ASSETS__-->", blobs)

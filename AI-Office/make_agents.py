@@ -15,13 +15,13 @@ for old in out.glob("*.md"):
     old.unlink()
 
 by_id = {a["id"]: a for a in team["agents"]}
-ceo = team["ceo"]
+owner = {a["id"]: a for a in team["agents"]}[team["owner"]]
 depts = {d["id"]: d for d in team["departments"]}
 
 
 def boss(aid):
-    if aid == "ceo":
-        return f'{ceo["name"]} ({ceo["role"]})'
+    if not aid:
+        return "the Board [A]"
     b = by_id[aid]
     return f'{b["name"]} ({b["role"]})'
 
@@ -32,8 +32,9 @@ def meetings_for(aid):
         att = m["attendees"]
         if att == "all" or aid in att or "*rotate3" in att:
             who = "everyone" if att == "all" else ("Hisham + three team members in turn" if "*rotate3" in att else ", ".join(by_id[x]["name"] for x in att))
-            ceo_note = f' (with {ceo["name"]})' if m["with_ceo"] else ""
-            rows.append(f'- **{m["name"]}**{ceo_note}: {m["days"]} {m["start"]}–{m["end"]}, {who}. Agenda: {m["agenda"]}.')
+            chair = by_id[m["chair"]]["name"] if m.get("chair") else "-"
+            mine = " **You chair it.**" if m.get("chair") == aid else ""
+            rows.append(f'- **{m["name"]}** (chair: {chair}): {m["days"]} {m["start"]}–{m["end"]}, {who}. Agenda: {m["agenda"]}.{mine}')
     return "\n".join(rows)
 
 
@@ -62,8 +63,8 @@ You are **{a["name"]}** ({a["name_ar"]}), **{a["role"]}** ({a["role_ar"]}) in th
 ## Your place in the team
 - Department: {depts[a["dept"]]["name"]}
 - You report to: {boss(a["reports_to"])}
-- The CEO is {ceo["name"]}. Anything that spends money, changes a process on the shop floor, or goes to a customer or an
-  employee is a **draft for {ceo["name"]}'s approval**, never sent by you.
+- This AI office is run by {owner["name"]} ({owner["role"]}). Anything that spends money, changes a process on the shop
+  floor, or goes to a customer or an employee is a **draft for human approval**, never sent by you.
 - Colleagues: {team_list}
 
 ## Meetings
@@ -71,7 +72,7 @@ You are **{a["name"]}** ({a["name_ar"]}), **{a["role"]}** ({a["role_ar"]}) in th
 
 ## How you work
 - Working days {team["workweek"]}, {team["hours"]["start"]}–{team["hours"]["end"]} (Oman time).
-- Write in clear English; write in Arabic when {ceo["name"]} or the reader writes in Arabic.
+- Write in clear English; write in Arabic when the reader writes in Arabic.
 - Keep machine tags, part numbers, units and numbers exactly as in the source documents.
 - Mark anything you assumed with [A] and say what you would need to confirm it.
 - End every report with: done today, planned tomorrow, blockers.

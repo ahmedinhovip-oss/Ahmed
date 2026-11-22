@@ -1,7 +1,7 @@
 # AI Office — Phase 1
 
 A 3D office where the AI team of Synergies Castings lives a working day: they arrive, work at their desks, walk to
-the daily stand-up with Ahmed, take the coffee break, sit in Hisham's skill session, visit each other's desks and go
+the daily stand-up, take the coffee break, sit in Hisham's skill session, visit each other's desks and go
 home. Click anyone to read their job description. English / Arabic switch at the top right.
 
 **Open `AI-Office.html`** in any browser. It is one offline file and needs no internet.
@@ -26,17 +26,24 @@ home. Click anyone to read their job description. English / Arabic switch at the
 | `build.sh` | Rebuilds the agent files and `AI-Office.html` |
 
 To change the team: edit `team.json`, then run `./build.sh` (needs `npm install` once in `.claude/skills/teardown`).
-Up to 4 departments × 6 desks and 9 seats at the meeting table; extra people stand along the meeting room wall.
+Up to 4 departments × 6 desks, 9 chairs plus the head chair at the meeting table; extra people stand along the wall.
+The dashboard (`python3 Library/build_dashboard.py`) shows the AI Office as a banner above the plant areas.
 Looks: `outfit` is `dishdasha`, `suit`, `hijab` or `coverall`; `cap`, `scarf`, `hardhat`, `skin`, `color` are colours.
+
+## The team
+
+Given by Ahmed: Ali (CEO), Ram (COO), Ahmed (Business Improvement Manager), Saif (HR Manager), Hisham (IT Manager,
+and gives people skills: finds Claude skills on GitHub and teaches them), Aiman (Safety Manager).
+All six are characters in the office and each has an agent file. Ahmed runs the AI office: "Start a meeting now" puts
+him at the head of the table.
 
 ## Assumptions [A]
 
-Ahmed has not sent the team list yet. Everything below is a starter set to replace:
-
-- Hisham (Skills & Training Lead) and Saif (HR Manager) are named by Ahmed; their duties are written by us [A].
-- Khalid, Maryam, Yousef, Salim, Aisha, Fatma, Nasser and all their duties [A].
+- Duties of Ali, Ram, Ahmed and Aiman; who reports to whom (Ram, Ahmed, Saif, Hisham → Ali; Aiman → Ram) [A].
+- Departments: Executive, Business Improvement, People & IT, Health & Safety [A].
 - Working week Sun–Thu, 07:30–16:30 [A].
-- Meetings: stand-up with Ahmed 08:00, skill session 11:00, production review 13:45, end-of-day report to Ahmed 15:30 [A].
+- Meetings: stand-up 08:00 (chair Ali), skill session 11:00 (Hisham), operations & safety review 13:45 (chair Ram),
+  end-of-day report to the CEO 15:30 (chair Ali) [A].
 - Breaks: coffee 10:00–10:20, lunch 12:15–13:00 [A].
 
 ## Phase 2 (not started)

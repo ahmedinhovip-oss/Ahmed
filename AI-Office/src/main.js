@@ -93,14 +93,14 @@ const planner = makePlanner(team);
 // ---------------------------------------------------------------- people
 const byId = Object.fromEntries(team.agents.map((a) => [a.id, a]));
 const deptOf = Object.fromEntries(team.departments.map((d) => [d.id, d]));
-const ceo = {id: 'ceo', name: team.ceo.name, name_ar: team.ceo.name_ar, role: team.ceo.role, role_ar: team.ceo.role_ar, look: {outfit: 'dishdasha', skin: '#a9774f', color: '#fbfaf6', cap: '#1f4e79'}};
-const crowd = [...team.agents, ceo].map((a) => {
+const owner = byId[team.owner];
+const crowd = team.agents.map((a) => {
   const p = makePerson(a.look, a.id);
   scene.add(p.root);
   const st = {a, p, x: spots.outside.x, z: spots.outside.z, rot: Math.PI, path: [], spot: null, plan: null, visible: false, walkPhase: 0};
   p.root.visible = false;
   p.tag.addEventListener('click', () => select(a.id));
-  if (a.id === 'ceo') p.tag.classList.add('ceo');
+  if (a.chair) p.tag.classList.add('ceo');
   return st;
 });
 const crowdById = Object.fromEntries(crowd.map((s) => [s.a.id, s]));
@@ -127,7 +127,7 @@ function placeAt(st, spotId) {
 // put everyone straight where they belong (after a clock jump)
 function snapAll() {
   for (const st of crowd) {
-    const pl = st.a.id === 'ceo' ? planner.planCeo(simMin) : planner.plan(st.a.id, simMin);
+    const pl = planner.plan(st.a.id, simMin);
     st.plan = pl;
     st.spot = pl.spot;
     placeAt(st, pl.spot);
@@ -163,7 +163,7 @@ const placeName = (spot) => {
 const WALK = 1.5; // m/s at 1x
 function updatePerson(st, dt, now) {
   const id = st.a.id;
-  const pl = id === 'ceo' ? planner.planCeo(simMin) : planner.plan(id, simMin);
+  const pl = planner.plan(id, simMin);
   st.plan = pl;
   if (pl.spot !== st.spot) {
     const prev = st.spot;
@@ -181,7 +181,7 @@ function updatePerson(st, dt, now) {
     // leaving the building: through the door, then outside
     st.path = way;
     const where = placeName(pl.spot);
-    if (where && prev && placeName(prev) !== where && id !== 'ceo' && !pl.meeting) addLog(`${st.a.name} walked to the ${where.toLowerCase()}`, `${st.a.name_ar} ${fem(st.a) ? 'ذهبت' : 'ذهب'} إلى ${AR_PLACE(where)}`);
+    if (where && prev && placeName(prev) !== where && !pl.meeting) addLog(`${st.a.name} walked to the ${where.toLowerCase()}`, `${st.a.name_ar} ${fem(st.a) ? 'ذهبت' : 'ذهب'} إلى ${AR_PLACE(where)}`);
     if (pl.spot.startsWith('visit:')) {
       const o = byId[pl.with];
       addLog(`${st.a.name} went to ${o.name}'s desk`, `${st.a.name_ar} ${fem(st.a) ? 'ذهبت' : 'ذهب'} إلى مكتب ${o.name_ar}`);
@@ -301,7 +301,7 @@ function drawScreens(ag) {
     ctx.fillText(ovOn || now ? t('Now') : t('Next'), w / 2, h * 0.2);
     ctx.fillStyle = '#fff';
     ctx.font = `700 ${h * 0.12}px ${font}`;
-    const it = ovOn ? {name: 'Meeting with Ahmed', name_ar: 'اجتماع مع أحمد', s: ov.from % 1440, e: ov.to % 1440} : now || nxt;
+    const it = ovOn ? {name: 'Team meeting', name_ar: 'اجتماع الفريق', s: ov.from % 1440, e: ov.to % 1440} : now || nxt;
     const title = it ? (ar ? it.name_ar : it.name) : t('No more meetings today.');
     wrap(ctx, title, w / 2, h * 0.45, w * 0.9, h * 0.15);
     if (it) {
@@ -362,7 +362,7 @@ function renderAgenda() {
         return `<div class="ev ${i.state} ${i.kind}" data-k="${k}">
           <i dir="ltr">${clock(i.s)}–${clock(i.e)}</i>
           <b>${ar ? i.name_ar : i.name}</b>
-          ${i.with_ceo ? `<em>${t('with Ahmed')}</em>` : ''}
+          ${i.chair && i.kind === 'meeting' ? `<em>${t('Chair')}: ${nm(byId[i.chair])}</em>` : ''}
           ${who ? `<small>${who}</small>` : ''}
           <button class="jump" data-s="${i.s}">${t('Jump here')}</button></div>`;
       })
@@ -399,7 +399,7 @@ function renderTeam() {
   for (const b of teamEl.querySelectorAll('.member')) b.onclick = () => select(b.dataset.id);
 }
 function renderDetail() {
-  if (!selected || selected === 'ceo') {
+  if (!selected) {
     detailEl.classList.add('hidden');
     document.getElementById('team').classList.remove('hidden-d');
     return;
@@ -407,7 +407,7 @@ function renderDetail() {
   const a = byId[selected];
   const st = crowdById[selected];
   const ar = getLang() === 'ar';
-  const boss = a.reports_to === 'ceo' ? `${pick(ceo, 'name')} (${pick(ceo, 'role')})` : `${nm(byId[a.reports_to])} (${pick(byId[a.reports_to], 'role')})`;
+  const boss = !a.reports_to ? t('The Board') : `${nm(byId[a.reports_to])} (${pick(byId[a.reports_to], 'role')})`;
   const ag = planner.agenda(simMin);
   const mine = ag.items.filter((i) => i.kind === 'meeting' && i.list.includes(a.id));
   const doing = st.plan ? (ar ? st.plan.act_ar || t(st.plan.act) : st.plan.act) : '';
@@ -483,12 +483,12 @@ function setSpeed(s) {
 for (const b of document.querySelectorAll('[data-speed]')) b.onclick = () => setSpeed(Number(b.dataset.speed));
 document.getElementById('meetNow').onclick = () => {
   planner.setOverride({kind: 'meeting', from: simMin, to: simMin + 25});
-  addLog('Meeting started by Ahmed', 'اجتماع بدأه أحمد');
+  addLog(`Meeting called by ${owner.name}`, `اجتماع دعا إليه ${owner.name_ar}`);
   goView('meeting');
 };
 document.getElementById('breakNow').onclick = () => {
   planner.setOverride({kind: 'break', from: simMin, to: simMin + 15});
-  addLog('Break called by Ahmed', 'استراحة أعلنها أحمد');
+  addLog(`Break called by ${owner.name}`, `استراحة أعلنها ${owner.name_ar}`);
   goView('cafe');
 };
 document.getElementById('workNow').onclick = () => {

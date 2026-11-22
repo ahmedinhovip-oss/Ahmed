@@ -73,6 +73,18 @@ h2 { font: 600 24px var(--display); margin: 0 }
 .empty { padding: 34px 26px; background: var(--panel); border: 1px dashed var(--line); border-radius: 8px; max-width: 640px }
 .empty h3 { font: 600 19px var(--display); margin: 0 0 6px }
 .empty p { margin: 0; color: var(--muted) }
+/* AI Office banner */
+.office { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 24px; align-items: center; margin-bottom: 22px;
+  padding: 18px 20px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px }
+.office h2 { font-size: 22px }
+.office .sum { color: var(--muted); margin-top: 2px }
+.people { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px }
+.person { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; background: var(--bg) }
+.person i { width: 9px; height: 9px; border-radius: 50%; flex: none }
+.person b { font-weight: 600 }
+.person span { color: var(--muted) }
+.office .mt { grid-column: 1 / -1; font: 12px var(--mono); color: var(--muted); margin: 0 }
+@media (max-width: 640px) { .office { grid-template-columns: 1fr } .office .open { justify-self: start } }
 footer { margin-top: 36px; font-size: 13px; color: var(--muted) }
 
 dialog { width: min(1100px, 94vw); padding: 0; border: 0; border-radius: 8px; background: #000; color: #fff }
@@ -89,6 +101,7 @@ dialog button { background: none; border: 1px solid #555; color: #fff; border-ra
     <div><h1 id="title">Equipment Library</h1><p class="sub">Plant areas in metal-flow order. Each machine has its 3D simulator, a tour video and its manuals.</p></div>
     <div class="total" id="total"></div>
   </header>
+  <section class="office" id="office" hidden></section>
   <nav class="flow" id="flow" aria-label="Plant areas"></nav>
   <main id="area"></main>
   <footer>Open the 3D simulators in Chrome or Edge. Files live in the <code>Library</code> folder beside this page.</footer>
@@ -121,6 +134,16 @@ $('#total').textContent = `${count} machine${count === 1 ? '' : 's'} · ${DATA.a
 $('#flow').innerHTML = DATA.areas.map((a, i) => `<a class="stage${a.packages.length ? ' has' : ''}" href="#${a.id}" data-id="${a.id}">
   <span class="n">${String(i + 1).padStart(2, '0')}</span><span class="nm">${esc(a.name)}</span>
   <span class="ct">${a.packages.length ? a.packages.length + ' machine' + (a.packages.length > 1 ? 's' : '') : 'empty'}</span></a>`).join('');
+
+if (DATA.office) {
+  const o = DATA.office;
+  const el = $('#office');
+  el.hidden = false;
+  el.innerHTML = `<div><h2>AI Office</h2><p class="sum">The AI team in a 3D office: watch them work, walk to meetings and take breaks. Click anyone for their job description.</p></div>
+    <a class="open" href="${res(o.href)}" target="_blank" rel="noopener">Open the AI Office</a>
+    <div class="people">${o.people.map((p) => `<span class="person"><i style="background:${esc(o.colors[p.dept] || '#999')}"></i><b>${esc(p.name)}</b><span>${esc(p.role)}</span></span>`).join('')}</div>
+    <p class="mt">${o.meetings.map((m) => `${esc(m.start)} ${esc(m.name)}`).join(' · ')}</p>`;
+}
 
 function card(p) {
   const docs = p.docs.map((d) => `<a href="${res(d.href)}" download="${esc(d.name)}"><span>${esc(d.label)}</span><span class="meta"><b>${ext(d.name)}</b> ${mb(d.size)}</span></a>`).join('');

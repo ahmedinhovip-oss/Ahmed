@@ -246,9 +246,9 @@ export function buildOffice(scene, team) {
       chair(s.x, s.z, s.rot);
       spots['meet:' + i] = {...s, pose: 'sit'};
     });
-    // the CEO's chair at the head, facing the screen end
+    // the chair at the head of the table, for whoever chairs the meeting
     chair(14.75, -6, -Math.PI / 2, mat('#7a2f3a'));
-    spots['meet:ceo'] = {x: 14.75, z: -6, rot: -Math.PI / 2, pose: 'sit'};
+    spots['meet:head'] = {x: 14.75, z: -6, rot: -Math.PI / 2, pose: 'sit'};
     // standing room for more people than chairs
     for (let i = 0; i < 8; i++) spots['meetstand:' + i] = {x: 7.5 + i * 1.05, z: -9.6, rot: 0, pose: 'stand'};
     // wall screen on the window side, facing into the room

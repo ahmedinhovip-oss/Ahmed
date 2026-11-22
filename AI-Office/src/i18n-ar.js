@@ -68,4 +68,7 @@ export const AR = {
   Ahmed: 'أحمد',
   CEO: 'الرئيس التنفيذي',
   'Free time': 'وقت حر',
+  Chair: 'يرأسه',
+  'The Board': 'مجلس الإدارة',
+  'Team meeting': 'اجتماع الفريق',
 };

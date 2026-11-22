@@ -18,3 +18,9 @@ The user keeps a copy at `C:\Users\SCO100317\OneDrive - Synergies Castings LLC\D
 - Every simulator has an English / Arabic switch (see `Library/Melting/ha01-furnace/src/i18n.js` and `i18n-ar.js`):
   write the markup in English, translate every shown string into Arabic, keep tags, units and numbers as on the panel.
 - Values not given by the source documents are marked `[A]` in the package's model and listed in its README.
+
+# AI Office
+
+`AI-Office/` is the user's AI team in a 3D office (see `AI-Office/README.md`). `AI-Office/team.json` is the one source
+for people, job descriptions (EN + AR), meetings and breaks; `AI-Office/build.sh` rebuilds `AI-Office.html` and the
+agent files in `AI-Office/.claude/agents/`. The dashboard shows it as a banner, so rebuild the dashboard after changing it.
